@@ -17,6 +17,10 @@ public class MineMinigame : MonoBehaviour
     private bool playingMinigame = false;
     private bool hitOnceBeforeRest = false;
 
+    public GameObject depositObject;
+
+    public AudioClip pickaxeHitClip;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +40,7 @@ public class MineMinigame : MonoBehaviour
                         Debug.Log("You hit it very well!!");
                     }
                 }
+                SoundManager.Instance.PlaySound(pickaxeHitClip);
             }
         }
     }
@@ -75,5 +80,7 @@ public class MineMinigame : MonoBehaviour
 
         miniGameCanvas.SetActive(false);
         playingMinigame = false;
+
+        depositObject.GetComponent<OreDeposit>().BreakDeposit();
     }
 }

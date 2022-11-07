@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fa4a608ca9582b45a2a2c63c6aa377f, type: 3}
+  m_Name: CopperOre
+  m_EditorClassIdentifier: 
+  itemType: Copper
+  itemModel: {fileID: 3522215564468904405, guid: a535c7235f6e7994eac412d4af69e027,
+    type: 3}
+  minSize: 0.5
+  maxSize: 2.5
+  minQuality: 1
+  maxQuality: 5
