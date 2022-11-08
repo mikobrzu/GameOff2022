@@ -141,3 +141,4 @@ MonoBehaviour:
   maxQuality: 5
   quality: 0
   price: 0
+  inCollectionZone: 0

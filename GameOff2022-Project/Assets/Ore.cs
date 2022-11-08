@@ -20,21 +20,25 @@ public class Ore : MonoBehaviour
     public float quality;
     public float price;
 
+    public bool inCollectionZone;
+
     // Start is called before the first frame update
     void Start()
     {
         SetMesh();
-
-        CalculateSize();
-        CalculateWeight();
-        CalculateQuality();
-        CalculatePrice();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void CalculateOreStats(){
+        CalculateSize();
+        CalculateWeight();
+        CalculateQuality();
+        CalculatePrice();
     }
 
     void SetMesh(){

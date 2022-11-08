@@ -23,12 +23,23 @@ public class CollectionZone : MonoBehaviour
     private void OnTriggerEnter(Collider other){
         if (other.tag == "Pickup"){
             countInBox += 1;
+            other.GetComponent<Ore>().inCollectionZone = true;
+            //if (other.GetComponent<>())
+            other.transform.parent = transform;
         }
     }
 
     private void OnTriggerExit(Collider other){
         if (other.tag == "Pickup"){
             countInBox -= 1;
+            other.GetComponent<Ore>().inCollectionZone = false;
+            other.transform.parent = null;
+        }
+    }
+
+    public void SaveBoxContents(){
+        foreach (Transform child in transform){
+            DataManager.Instance.AddOreToBox(child.gameObject, child.GetComponent<Ore>().oreType, child.GetComponent<Ore>().size, child.GetComponent<Ore>().weight, child.GetComponent<Ore>().quality, child.GetComponent<Ore>().price);
         }
     }
 }
