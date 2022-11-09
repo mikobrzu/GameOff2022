@@ -18,10 +18,25 @@ public class OreDeposit : MonoBehaviour
 
     public GameObject damageText;
 
+    public GameObject[] ironDepositObjects;
+    public GameObject[] copperDepositObjects;
+
+    public string depositType;
+
     // Start is called before the first frame update
     void Start()
     {
-        numberOfOres = Random.Range(0, 4);
+        numberOfOres = Random.Range(1, 5);
+
+        // Disable any deposit prefabs active.
+        for (int i = 0; i >= ironDepositObjects.Length; i++){
+            ironDepositObjects[i].SetActive(false);
+        }
+        for (int i = 0; i >= copperDepositObjects.Length; i++){
+            copperDepositObjects[i].SetActive(false);
+        }
+
+        DetermineDepositType();
     }
 
     // Update is called once per frame
@@ -30,6 +45,9 @@ public class OreDeposit : MonoBehaviour
         if (depositHealth < 0.0f){
             BreakDeposit();
         }
+
+        int randomGO = Random.Range(0, ironDepositObjects.Length);
+        Debug.Log(randomGO);
     }
 
     public void BreakDeposit(){
@@ -37,8 +55,8 @@ public class OreDeposit : MonoBehaviour
         // Spawn ore
         for (int i = 0; i < numberOfOres; i++){
             GameObject Ore = Instantiate(OrePrefab, transform.position, Quaternion.identity);
-            Ore.GetComponent<Ore>().oreType = "Copper";
-            Ore.GetComponent<Ore>().CalculateOreStats();
+            Ore.GetComponent<Ore>().oreType = depositType;
+            Ore.GetComponent<Ore>().SetRandomStats();
         }
 
         SoundManager.Instance.PlaySound(depositDestroyedClip);
@@ -56,5 +74,19 @@ public class OreDeposit : MonoBehaviour
             indicator.crit = false;
         }
         indicator.SetDamageText(damageToDeposit);
+    }
+
+    public void DetermineDepositType(){
+        int randomInt = Random.Range(0,2);
+        if (randomInt == 1){
+            depositType = "Iron";
+            ironDepositObjects[Random.Range(0, ironDepositObjects.Length)].SetActive(true);
+        }
+        else{
+            depositType = "Copper";
+            copperDepositObjects[Random.Range(0, copperDepositObjects.Length)].SetActive(true);
+        }
+
+        Debug.Log(ironDepositObjects.Length);
     }
 }

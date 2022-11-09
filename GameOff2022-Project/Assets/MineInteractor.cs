@@ -24,6 +24,9 @@ public class MineInteractor : MonoBehaviour
 
     public bool crit = false;
 
+    public GameObject hitVisualPrefab;
+    public Transform hitVisualTarget;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +55,7 @@ public class MineInteractor : MonoBehaviour
                     timeSinceLastHit = 0f;
                     StartCoroutine(cameraShake.Shake(.1f, .01f));
                     hit.collider.GetComponent<OreDeposit>().TakeDamage(pickaxeDamage, crit);
+                    Instantiate(hitVisualPrefab, hitVisualTarget.position, Quaternion.identity);
                 }
             }
         }

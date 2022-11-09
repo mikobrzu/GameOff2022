@@ -22,6 +22,8 @@ public class Ore : MonoBehaviour
 
     public bool inCollectionZone;
 
+    public bool calculatedStats = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +33,10 @@ public class Ore : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (calculatedStats == false){
+            CalculateOreStats();
+            calculatedStats = true;
+        }
     }
 
     public void CalculateOreStats(){
@@ -39,6 +44,11 @@ public class Ore : MonoBehaviour
         CalculateWeight();
         CalculateQuality();
         CalculatePrice();
+    }
+
+    public void SetRandomStats(){
+        size = Random.Range(minSize, maxSize);
+        quality = Random.Range(1,5);
     }
 
     void SetMesh(){
@@ -54,7 +64,7 @@ public class Ore : MonoBehaviour
     }
 
     void CalculateSize(){
-        size = Random.Range(minSize, maxSize);
+        // size = Random.Range(minSize, maxSize);
         transform.localScale = new Vector3(transform.localScale.x * size, transform.localScale.y * size, transform.localScale.z * size);
     }
 
@@ -63,10 +73,14 @@ public class Ore : MonoBehaviour
     }
 
     void CalculateQuality(){
-        quality = Random.Range(1,5);
+        //quality = Random.Range(1,5);
     }
 
     void CalculatePrice(){
         price = quality * weight;
+    }
+
+    public void SetSize(float sizeValue){
+        transform.localScale = new Vector3(transform.localScale.x * sizeValue, transform.localScale.y * sizeValue, transform.localScale.z * sizeValue);
     }
 }

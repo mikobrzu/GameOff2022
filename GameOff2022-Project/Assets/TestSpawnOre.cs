@@ -12,9 +12,11 @@ public class TestSpawnOre : MonoBehaviour
         int randomInt = Random.Range(0,2);
         if (randomInt == 1){
             Ore.GetComponent<Ore>().oreType = "Iron";
+            Ore.GetComponent<Ore>().SetRandomStats();
         }
         else{
             Ore.GetComponent<Ore>().oreType = "Copper";
+            Ore.GetComponent<Ore>().SetRandomStats();
         }
     }
 }
