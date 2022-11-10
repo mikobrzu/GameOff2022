@@ -4262,6 +4262,7 @@ MonoBehaviour:
     items: []
   OrePrefab: {fileID: 3371557446308718222, guid: 3d19872a219449c4a9082aa75771cecc,
     type: 3}
+  IngotPrefab: {fileID: 0}
   collectionBoxTransformRef: {fileID: 2042346126}
   itemsInWorld: []
 --- !u!4 &1912543587
@@ -4945,6 +4946,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4226391105969511572, guid: e2f4c688cea646a4dabc23ae406aa2f9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2f4c688cea646a4dabc23ae406aa2f9, type: 3}
