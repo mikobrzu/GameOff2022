@@ -2511,6 +2511,8 @@ MonoBehaviour:
     items: []
   OrePrefab: {fileID: 3371557446308718222, guid: 3d19872a219449c4a9082aa75771cecc,
     type: 3}
+  IngotPrefab: {fileID: 7770306581741535951, guid: c4dcf87e17ab88b4da97a0b9db0b21c4,
+    type: 3}
   collectionBoxTransformRef: {fileID: 1317452697}
   itemsInWorld: []
 --- !u!4 &1609260267

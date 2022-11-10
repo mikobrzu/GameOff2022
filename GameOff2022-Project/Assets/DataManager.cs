@@ -17,6 +17,7 @@ public class DataManager : MonoBehaviour
     public ItemsInWorldDB ItemsInWorldDB;
 
     public GameObject OrePrefab;
+    public GameObject IngotPrefab;
     public Transform collectionBoxTransformRef;
 
     public GameObject[] itemsInWorld;
@@ -98,16 +99,31 @@ public class DataManager : MonoBehaviour
         }
 
         foreach (GameObject iObj in itemsInWorld){
-            if (iObj.GetComponent<Ore>().inCollectionZone == false){
-                ItemsInWorld item = new ItemsInWorld();
-                item.Position = iObj.transform.position;
-                item.oreRotationQ = iObj.transform.rotation;
-                item.oreType = iObj.GetComponent<Ore>().oreType;
-                item.oreSize = iObj.GetComponent<Ore>().size;
-                item.oreWeight = iObj.GetComponent<Ore>().weight;
-                item.oreQuality = iObj.GetComponent<Ore>().quality;
-                item.orePrice = iObj.GetComponent<Ore>().price;
-                ItemsInWorldDB.items.Add(item);
+            if (iObj.GetComponent<Ore>() != null){
+                if (iObj.GetComponent<Ore>().inCollectionZone == false){
+                    ItemsInWorld item = new ItemsInWorld();
+                    item.Position = iObj.transform.position;
+                    item.oreRotationQ = iObj.transform.rotation;
+                    item.oreType = iObj.GetComponent<Ore>().oreType;
+                    item.oreSize = iObj.GetComponent<Ore>().size;
+                    item.oreWeight = iObj.GetComponent<Ore>().weight;
+                    item.oreQuality = iObj.GetComponent<Ore>().quality;
+                    item.orePrice = iObj.GetComponent<Ore>().price;
+                    item.itemOreOrIngot = "Ore";
+                    ItemsInWorldDB.items.Add(item);
+                }
+            }
+            else if (iObj.GetComponent<Ingot>() != null){
+                    ItemsInWorld item = new ItemsInWorld();
+                    item.Position = iObj.transform.position;
+                    item.oreRotationQ = iObj.transform.rotation;
+                    item.oreType = iObj.GetComponent<Ingot>().ingotType;
+                    item.oreSize = iObj.GetComponent<Ingot>().size;
+                    item.oreWeight = iObj.GetComponent<Ingot>().weight;
+                    item.oreQuality = iObj.GetComponent<Ingot>().quality;
+                    item.orePrice = iObj.GetComponent<Ingot>().price;
+                    item.itemOreOrIngot = "Ingot";
+                    ItemsInWorldDB.items.Add(item);
             }
         }
 
@@ -131,17 +147,32 @@ public class DataManager : MonoBehaviour
         stream.Close();
 
         foreach(ItemsInWorld item in ItemsInWorldDB.items){
-            GameObject ore = Instantiate(OrePrefab, new Vector3(0f,0f,0f), Quaternion.identity);
-            //ore.transform.parent = collectionBoxTransformRef;
-            //ore.transform.localPosition = item.Position;
-            //ore.transform.parent = null;
-            ore.GetComponent<Ore>().oreType = item.oreType;
-            ore.GetComponent<Ore>().size = item.oreSize;
-            ore.GetComponent<Ore>().weight = item.oreWeight;
-            ore.GetComponent<Ore>().quality = item.oreQuality;
-            ore.GetComponent<Ore>().price = item.orePrice;
-            ore.transform.position = item.Position;
-            ore.transform.rotation = item.oreRotationQ;
+            if (item.itemOreOrIngot == "Ore"){
+                GameObject ore = Instantiate(OrePrefab, new Vector3(0f,0f,0f), Quaternion.identity);
+                //ore.transform.parent = collectionBoxTransformRef;
+                //ore.transform.localPosition = item.Position;
+                //ore.transform.parent = null;
+                ore.GetComponent<Ore>().oreType = item.oreType;
+                ore.GetComponent<Ore>().size = item.oreSize;
+                ore.GetComponent<Ore>().weight = item.oreWeight;
+                ore.GetComponent<Ore>().quality = item.oreQuality;
+                ore.GetComponent<Ore>().price = item.orePrice;
+                ore.transform.position = item.Position;
+                ore.transform.rotation = item.oreRotationQ;
+            }
+            else{
+                GameObject ingot = Instantiate(IngotPrefab, new Vector3(0f,0f,0f), Quaternion.identity);
+                //ore.transform.parent = collectionBoxTransformRef;
+                //ore.transform.localPosition = item.Position;
+                //ore.transform.parent = null;
+                ingot.GetComponent<Ingot>().ingotType = item.oreType;
+                ingot.GetComponent<Ingot>().size = item.oreSize;
+                ingot.GetComponent<Ingot>().weight = item.oreWeight;
+                ingot.GetComponent<Ingot>().quality = item.oreQuality;
+                ingot.GetComponent<Ingot>().price = item.orePrice;
+                ingot.transform.position = item.Position;
+                ingot.transform.rotation = item.oreRotationQ;
+            }
         }
 
         ItemsInWorldDB.items.Clear();
@@ -200,4 +231,5 @@ public class ItemsInWorld{
     public float oreQuality;
     public float orePrice;
     public Quaternion oreRotationQ;
+    public string itemOreOrIngot;
 }
