@@ -30,6 +30,9 @@ public class Scale : MonoBehaviour
             else if (onScale[i].GetComponent<Ingot>() != null){
                 weightOnScale = weightOnScale + onScale[i].GetComponent<Ingot>().weight;
             }
+            else if (onScale[i].GetComponent<ArmourPiece>() != null){
+                weightOnScale = weightOnScale + onScale[i].GetComponent<ArmourPiece>().GetPieceWeight();
+            }
         }
 
         scaleText.text = weightOnScale.ToString("F1");

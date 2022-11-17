@@ -22,10 +22,16 @@ public class ScalePlate : MonoBehaviour
         if (collision.gameObject.tag == "Pickup"){
             ScaleRef.GetComponent<Scale>().onScale.Add(collision.gameObject);
         }
+        else if (collision.gameObject.tag == "Armour"){
+            ScaleRef.GetComponent<Scale>().onScale.Add(collision.gameObject);
+        }
     }
 
     private void OnCollisionExit(Collision collision){
         if (collision.gameObject.tag == "Pickup"){
+            ScaleRef.GetComponent<Scale>().onScale.Remove(collision.gameObject);
+        }
+        else if (collision.gameObject.tag == "Armour"){
             ScaleRef.GetComponent<Scale>().onScale.Remove(collision.gameObject);
         }
     }

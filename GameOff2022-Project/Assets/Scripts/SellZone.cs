@@ -33,5 +33,14 @@ public class SellZone : MonoBehaviour
                 Debug.Log("Sell error.");
             }
         }
+        else if (other.tag == "Armour"){
+            if (other.gameObject.GetComponent<ArmourPiece>() != null){
+                pData.playerGold = pData.playerGold + (other.gameObject.GetComponent<ArmourPiece>().GetPiecePrice() * 0.75f);
+                Destroy(other.gameObject);
+            }
+            else {
+                Debug.Log("Sell error.");
+            }
+        }
     }
 }
