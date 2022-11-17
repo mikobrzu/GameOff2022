@@ -60,6 +60,8 @@ public class AnvilConstructZone : MonoBehaviour
 
     [SerializeField] private GameObject SmokeEffect;
 
+    [SerializeField] private float lightArmourMaxWeight;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -293,50 +295,106 @@ public class AnvilConstructZone : MonoBehaviour
             armourPieceToBuild = activeConstructionBP;
             if (armourPieceToBuild == "Helmet"){
                 if (armourTypeToBuild == "Copper"){
-                    GameObject CraftedArmour = Instantiate(Helmet_CH, transform.position, Quaternion.identity);
-                    CraftedArmour.GetComponent<ArmourPiece>().SetWeight(copperWeightOnAnvil);
-                    CraftedArmour.GetComponent<ArmourPiece>().SetQuality(CalculateAverageQualityOnAnvil());
+                    if (copperWeightOnAnvil > lightArmourMaxWeight){
+                        GameObject CraftedArmour = Instantiate(Helmet_CH, transform.position, Quaternion.identity);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetWeight(copperWeightOnAnvil);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetQuality(CalculateAverageQualityOnAnvil());
+                    }
+                    else{
+                        GameObject CraftedArmour = Instantiate(Helmet_CL, transform.position, Quaternion.identity);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetWeight(copperWeightOnAnvil);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetQuality(CalculateAverageQualityOnAnvil());
+                    }
                 }
                 else {
-                    GameObject CraftedArmour = Instantiate(Helmet_IH, transform.position, Quaternion.identity);
-                    CraftedArmour.GetComponent<ArmourPiece>().SetWeight(ironWeightOnAnvil);
-                    CraftedArmour.GetComponent<ArmourPiece>().SetQuality(CalculateAverageQualityOnAnvil());
+                    if (ironWeightOnAnvil > lightArmourMaxWeight){
+                        GameObject CraftedArmour = Instantiate(Helmet_IH, transform.position, Quaternion.identity);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetWeight(ironWeightOnAnvil);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetQuality(CalculateAverageQualityOnAnvil());
+                    }
+                    else{
+                        GameObject CraftedArmour = Instantiate(Helmet_IL, transform.position, Quaternion.identity);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetWeight(ironWeightOnAnvil);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetQuality(CalculateAverageQualityOnAnvil());
+                    }
                 }
             }
             else if (armourPieceToBuild == "Chestplate"){
                 if (armourTypeToBuild == "Copper"){
-                    GameObject CraftedArmour = Instantiate(Chestplate_CH, transform.position, Quaternion.identity);
-                    CraftedArmour.GetComponent<ArmourPiece>().SetWeight(copperWeightOnAnvil);
-                    CraftedArmour.GetComponent<ArmourPiece>().SetQuality(CalculateAverageQualityOnAnvil());
+                    if (copperWeightOnAnvil > lightArmourMaxWeight){
+                        GameObject CraftedArmour = Instantiate(Chestplate_CH, transform.position, Quaternion.identity);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetWeight(copperWeightOnAnvil);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetQuality(CalculateAverageQualityOnAnvil());
+                    }
+                    else{
+                        GameObject CraftedArmour = Instantiate(Chestplate_CL, transform.position, Quaternion.identity);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetWeight(copperWeightOnAnvil);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetQuality(CalculateAverageQualityOnAnvil());
+                    }
                 }
                 else {
-                    GameObject CraftedArmour = Instantiate(Chestplate_IH, transform.position, Quaternion.identity);
-                    CraftedArmour.GetComponent<ArmourPiece>().SetWeight(ironWeightOnAnvil);
-                    CraftedArmour.GetComponent<ArmourPiece>().SetQuality(CalculateAverageQualityOnAnvil());
+                    if (ironWeightOnAnvil > lightArmourMaxWeight){
+                        GameObject CraftedArmour = Instantiate(Chestplate_IH, transform.position, Quaternion.identity);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetWeight(ironWeightOnAnvil);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetQuality(CalculateAverageQualityOnAnvil());
+                    }
+                    else{
+                        GameObject CraftedArmour = Instantiate(Chestplate_IL, transform.position, Quaternion.identity);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetWeight(ironWeightOnAnvil);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetQuality(CalculateAverageQualityOnAnvil());
+                    }
                 }
             }
             else if (armourPieceToBuild == "Leggings"){
                 if (armourTypeToBuild == "Copper"){
-                    GameObject CraftedArmour = Instantiate(Leggings_CH, transform.position, Quaternion.identity);
-                    CraftedArmour.GetComponent<ArmourPiece>().SetWeight(copperWeightOnAnvil);
-                    CraftedArmour.GetComponent<ArmourPiece>().SetQuality(CalculateAverageQualityOnAnvil());
+                    if (copperWeightOnAnvil > lightArmourMaxWeight){
+                        GameObject CraftedArmour = Instantiate(Leggings_CH, transform.position, Quaternion.identity);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetWeight(copperWeightOnAnvil);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetQuality(CalculateAverageQualityOnAnvil());
+                    }
+                    else{
+                        GameObject CraftedArmour = Instantiate(Leggings_CL, transform.position, Quaternion.identity);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetWeight(copperWeightOnAnvil);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetQuality(CalculateAverageQualityOnAnvil());
+                    }
                 }
                 else {
-                    GameObject CraftedArmour = Instantiate(Leggings_IH, transform.position, Quaternion.identity);
-                    CraftedArmour.GetComponent<ArmourPiece>().SetWeight(ironWeightOnAnvil);
-                    CraftedArmour.GetComponent<ArmourPiece>().SetQuality(CalculateAverageQualityOnAnvil());
+                    if (ironWeightOnAnvil > lightArmourMaxWeight){
+                        GameObject CraftedArmour = Instantiate(Leggings_IH, transform.position, Quaternion.identity);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetWeight(ironWeightOnAnvil);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetQuality(CalculateAverageQualityOnAnvil());
+                    }
+                    else{
+                        GameObject CraftedArmour = Instantiate(Leggings_IL, transform.position, Quaternion.identity);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetWeight(ironWeightOnAnvil);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetQuality(CalculateAverageQualityOnAnvil());
+                    }
                 }
             }
             else if (armourPieceToBuild == "Shield"){
                 if (armourTypeToBuild == "Copper"){
-                    GameObject CraftedArmour = Instantiate(Shield_CH, transform.position, Quaternion.identity);
-                    CraftedArmour.GetComponent<ArmourPiece>().SetWeight(copperWeightOnAnvil);
-                    CraftedArmour.GetComponent<ArmourPiece>().SetQuality(CalculateAverageQualityOnAnvil());
+                    if (copperWeightOnAnvil > lightArmourMaxWeight){
+                        GameObject CraftedArmour = Instantiate(Shield_CH, transform.position, Quaternion.identity);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetWeight(copperWeightOnAnvil);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetQuality(CalculateAverageQualityOnAnvil());
+                    }
+                    else{
+                        GameObject CraftedArmour = Instantiate(Shield_CL, transform.position, Quaternion.identity);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetWeight(copperWeightOnAnvil);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetQuality(CalculateAverageQualityOnAnvil());
+                    }
                 }
                 else {
-                    GameObject CraftedArmour = Instantiate(Shield_IH, transform.position, Quaternion.identity);
-                    CraftedArmour.GetComponent<ArmourPiece>().SetWeight(ironWeightOnAnvil);
-                    CraftedArmour.GetComponent<ArmourPiece>().SetQuality(CalculateAverageQualityOnAnvil());
+                    if (ironWeightOnAnvil > lightArmourMaxWeight){
+                        GameObject CraftedArmour = Instantiate(Shield_IH, transform.position, Quaternion.identity);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetWeight(ironWeightOnAnvil);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetQuality(CalculateAverageQualityOnAnvil());
+                    }
+                    else {
+                        GameObject CraftedArmour = Instantiate(Shield_IL, transform.position, Quaternion.identity);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetWeight(ironWeightOnAnvil);
+                        CraftedArmour.GetComponent<ArmourPiece>().SetQuality(CalculateAverageQualityOnAnvil());
+                    }
                 }
             }
 

@@ -1220,6 +1220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1990455477}
   pData: {fileID: 0}
+  quickSellMultiplayer: 0.75
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -5143,6 +5144,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6103269588321607330, guid: 6d8ccb7868d41d744ad158ec40b5b429,
         type: 3}
+    - target: {fileID: 6302585495395912337, guid: 16f68e40a7a77194f995dea91d605a79,
+        type: 3}
+      propertyPath: lightArmourMaxWeight
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 6302585495395912348, guid: 16f68e40a7a77194f995dea91d605a79,
         type: 3}
       propertyPath: m_Size.x

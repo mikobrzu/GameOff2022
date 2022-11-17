@@ -7,6 +7,8 @@ public class SellZone : MonoBehaviour
     public GameObject player;
     public PlayerData pData;
 
+    [SerializeField] private float quickSellMultiplayer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,11 +24,11 @@ public class SellZone : MonoBehaviour
     private void OnTriggerEnter(Collider other){
         if (other.tag == "Pickup"){
             if (other.gameObject.GetComponent<Ore>() != null){
-                pData.playerGold = pData.playerGold + other.gameObject.GetComponent<Ore>().price;
+                pData.playerGold = pData.playerGold + (other.gameObject.GetComponent<Ore>().price * quickSellMultiplayer);
                 Destroy(other.gameObject);
             }
             else if (other.gameObject.GetComponent<Ingot>() != null){
-                pData.playerGold = pData.playerGold + other.gameObject.GetComponent<Ingot>().price;
+                pData.playerGold = pData.playerGold + (other.gameObject.GetComponent<Ingot>().price * quickSellMultiplayer);
                 Destroy(other.gameObject);
             }
             else {
@@ -35,7 +37,7 @@ public class SellZone : MonoBehaviour
         }
         else if (other.tag == "Armour"){
             if (other.gameObject.GetComponent<ArmourPiece>() != null){
-                pData.playerGold = pData.playerGold + (other.gameObject.GetComponent<ArmourPiece>().GetPiecePrice() * 0.75f);
+                pData.playerGold = pData.playerGold + (other.gameObject.GetComponent<ArmourPiece>().GetPiecePrice() * quickSellMultiplayer);
                 Destroy(other.gameObject);
             }
             else {
