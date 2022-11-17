@@ -9,6 +9,7 @@ TagManager:
   - CollectionZone
   - Blueprint
   - Armour
+  - CustomerSlot
   layers:
   - Default
   - TransparentFX
