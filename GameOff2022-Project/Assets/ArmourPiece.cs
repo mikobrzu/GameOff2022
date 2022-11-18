@@ -43,4 +43,12 @@ public class ArmourPiece : MonoBehaviour
     public float GetPiecePrice(){
         return piecePrice;
     }
+
+    public string GetArmourPieceString(){
+        return aPiece;
+    }
+
+    public string GetArmourTypeString(){
+        return aType;
+    }
 }

@@ -16,6 +16,7 @@ public class ShopFloorController : MonoBehaviour
     [SerializeField] private AudioClip customerBell;
 
     [SerializeField] private GameObject[] customerSlots;
+    [SerializeField] List<GameObject> customersInShop;
     //[SerializeField] private GameObject[] emptyCustomerSlots;
 
     // Start is called before the first frame update
@@ -37,22 +38,7 @@ public class ShopFloorController : MonoBehaviour
             countdownToSpawn -= Time.deltaTime;
         }
         else{
-            // Check if can spawn customer.
-                // can spawn in max number not reached.
-
-                // can spawn if empty slot was found.
-            // Spawn customer.
-            // Send customer to available slot.
             if (numberOfCustomers < maxNumberOfCustomers){
-
-                //bool emptySpotFound = false;
-                //List<GameObject> possibleCSOptions = new List<GameObject>();
-                //foreach (GameObject cS in customerSlots)
-                //{
-                    //if (cS.GetComponent<CustomerSlot>().CheckOccupied() == false){
-                        //possibleCSOptions.Add(cS);
-                    //}
-                //}
 
                 int slotToGo;
                 slotToGo = maxNumberOfCustomers - (numberOfCustomers + 1);
@@ -62,6 +48,12 @@ public class ShopFloorController : MonoBehaviour
                         if (CustomerSpawner != null){
                             GameObject NewCustomer = Instantiate(CustomerPrefab, CustomerSpawner.transform.position, Quaternion.identity);
                             NewCustomer.GetComponent<Customer>().SetTargetTransform(cS.transform);
+                            NewCustomer.GetComponent<Customer>().AssignSlot(slotToGo);
+                            customersInShop.Add(NewCustomer);
+
+                            // Set customer slot as occupied.
+                            cS.GetComponent<CustomerSlot>().SetOccupied(true);
+
                             SoundManager.Instance.PlaySound(customerBell);
                         }
                     }
@@ -69,6 +61,23 @@ public class ShopFloorController : MonoBehaviour
 
                 numberOfCustomers += 1;
                 GenWaitTime();
+            }
+        }
+        
+        for (int i = 0; i < customersInShop.Count; i++){
+            if (customersInShop[i].GetComponent<Customer>().GetAssignedSlot() != 3){
+
+                int currentSlotAssigned = new int();
+                currentSlotAssigned = customersInShop[i].GetComponent<Customer>().GetAssignedSlot();
+
+                if (customerSlots[currentSlotAssigned + 1].GetComponent<CustomerSlot>().CheckOccupied() == false){
+                    Debug.Log("Next position is free: moving...");
+                    customersInShop[i].GetComponent<Customer>().SetTargetTransform(customerSlots[currentSlotAssigned + 1].transform);
+                    customersInShop[i].GetComponent<Customer>().AssignSlot(customerSlots[currentSlotAssigned + 1].GetComponent<CustomerSlot>().GetSlotID());
+                    customerSlots[currentSlotAssigned + 1].GetComponent<CustomerSlot>().SetOccupied(true);
+
+                    customerSlots[currentSlotAssigned].GetComponent<CustomerSlot>().SetOccupied(false);
+                }
             }
         }
     }
@@ -79,5 +88,22 @@ public class ShopFloorController : MonoBehaviour
 
     private void SpawnCustomer(){
 
+    }
+
+    public void CustomerServed(int slotPreviouslyOccupied){
+        
+        for (int i = 0; i < customersInShop.Count; i++){
+            if (customersInShop[i].GetComponent<Customer>().GetAssignedSlot() == slotPreviouslyOccupied){
+                customersInShop.Remove(customersInShop[i]);
+                numberOfCustomers -= 1;
+            }
+        }
+        
+        // Set slot as unoccupied.
+        foreach (GameObject cS in customerSlots){
+            if (cS.GetComponent<CustomerSlot>().GetSlotID() == slotPreviouslyOccupied){
+                cS.GetComponent<CustomerSlot>().SetOccupied(false);
+            }
+        }
     }
 }

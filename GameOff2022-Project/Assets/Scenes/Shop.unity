@@ -2781,6 +2781,7 @@ MonoBehaviour:
     type: 3}
   customerBell: {fileID: 8300000, guid: a505b2688c3492441931f782906074ff, type: 3}
   customerSlots: []
+  customersInShop: []
 --- !u!4 &1143649420
 Transform:
   m_ObjectHideFlags: 0
