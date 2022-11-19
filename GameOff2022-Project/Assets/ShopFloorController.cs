@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ShopFloorController : MonoBehaviour
 {
@@ -17,11 +18,17 @@ public class ShopFloorController : MonoBehaviour
 
     [SerializeField] private GameObject[] customerSlots;
     [SerializeField] List<GameObject> customersInShop;
+
+    [SerializeField] private int complaints;
+    [SerializeField] private int maxComplaints = 3;
+    [SerializeField] private TextMeshProUGUI complaintsText;
+    [SerializeField] private bool closeShop;
     //[SerializeField] private GameObject[] emptyCustomerSlots;
 
     // Start is called before the first frame update
     void Start()
     {
+        complaints = 0;
         CustomerSpawner = GameObject.Find("CustomerSpawnLocation(Clone)");
 
         customerSlots = GameObject.FindGameObjectsWithTag("CustomerSlot");
@@ -80,6 +87,11 @@ public class ShopFloorController : MonoBehaviour
                 }
             }
         }
+
+        complaintsText.text = "Complaints: " + complaints.ToString("F0") + "/3";
+        if (complaints >= maxComplaints){
+            closeShop = true;
+        }
     }
 
     private void GenWaitTime(){
@@ -105,5 +117,9 @@ public class ShopFloorController : MonoBehaviour
                 cS.GetComponent<CustomerSlot>().SetOccupied(false);
             }
         }
+    }
+
+    public void AddComplaint(){
+        complaints += 1;
     }
 }

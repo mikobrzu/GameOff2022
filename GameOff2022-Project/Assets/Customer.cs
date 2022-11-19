@@ -123,6 +123,10 @@ public class Customer : MonoBehaviour
             customerWaitTime -= Time.deltaTime;
         }
 
+        if (customerWaitTime <= 0.0f){
+            ShopFloorControllerRef.GetComponent<ShopFloorController>().AddComplaint();
+        }
+
 
         // Check if correct armour is in handover box.
         CheckHandoverBox();
