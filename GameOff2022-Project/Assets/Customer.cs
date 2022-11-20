@@ -36,6 +36,7 @@ public class Customer : MonoBehaviour
     public List<GameObject> inHandoverBox = new List<GameObject>();
 
     [SerializeField] private bool satisfied = false;
+    [SerializeField] private bool complained = false;
 
     // Start is called before the first frame update
     void Start()
@@ -124,7 +125,11 @@ public class Customer : MonoBehaviour
         }
 
         if (customerWaitTime <= 0.0f){
-            ShopFloorControllerRef.GetComponent<ShopFloorController>().AddComplaint();
+            if (complained == false){
+                ShopFloorControllerRef.GetComponent<ShopFloorController>().AddComplaint();
+                complained = true;
+                Served();
+            }
         }
 
 
