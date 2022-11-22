@@ -314,7 +314,29 @@ MonoBehaviour:
   numberOfLeggingsBP: 0
   ironIngotNumber: 0
   copperIngotNumber: 0
+  ironWeightOnAnvil: 0
+  copperWeightOnAnvil: 0
   ingotRequirement: 0
+  canBuild: 0
+  ironHelmetPrefab: {fileID: 0}
+  Helmet_CL: {fileID: 0}
+  Helmet_CH: {fileID: 0}
+  Helmet_IL: {fileID: 0}
+  Helmet_IH: {fileID: 0}
+  Chestplate_CL: {fileID: 0}
+  Chestplate_CH: {fileID: 0}
+  Chestplate_IL: {fileID: 0}
+  Chestplate_IH: {fileID: 0}
+  Leggings_CL: {fileID: 0}
+  Leggings_CH: {fileID: 0}
+  Leggings_IL: {fileID: 0}
+  Leggings_IH: {fileID: 0}
+  Shield_CL: {fileID: 0}
+  Shield_CH: {fileID: 0}
+  Shield_IL: {fileID: 0}
+  Shield_IH: {fileID: 0}
+  SmokeEffect: {fileID: 0}
+  lightArmourMaxWeight: 0
 --- !u!1 &6302585495923993837
 GameObject:
   m_ObjectHideFlags: 0

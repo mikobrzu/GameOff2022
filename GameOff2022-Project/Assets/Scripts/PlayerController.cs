@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -23,6 +24,10 @@ public class PlayerController : MonoBehaviour
     Vector2 currentMouseDelta = Vector2.zero;
     Vector2 currentMouseDeltaVelocity = Vector2.zero;
 
+    [SerializeField] private bool gamePause;
+    [SerializeField] private GameObject gamePauseCanvas;
+    [SerializeField] private GameObject gameUICanvas;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,8 +42,26 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateMouseLook();
-        UpdateMovement();
+        
+
+        if (Input.GetKeyDown(KeyCode.Escape)){
+            ToggleGamePause();
+        }
+
+        if (gamePause == true){
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            gamePauseCanvas.SetActive(true);
+            gameUICanvas.SetActive(false);
+        }
+        else{
+            gamePauseCanvas.SetActive(false);
+            gameUICanvas.SetActive(true);
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            UpdateMouseLook();
+            UpdateMovement();
+        }
     }
 
     void UpdateMouseLook()
@@ -72,5 +95,9 @@ public class PlayerController : MonoBehaviour
         Vector3 velocity = (transform.forward * currentDir.y + transform.right * currentDir.x) * walkSpeed + Vector3.up * velocityY;
 
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    void ToggleGamePause(){
+        gamePause = !gamePause;
     }
 }
