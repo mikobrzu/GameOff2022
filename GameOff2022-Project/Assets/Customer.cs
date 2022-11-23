@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class Customer : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class Customer : MonoBehaviour
     [SerializeField] private int assignedSlot;
 
     [SerializeField] private float customerWaitTime;
+    [SerializeField] private float customerStartWaitTime;
     [SerializeField] private TextMeshProUGUI waitTimeText;
     [SerializeField] private TextMeshProUGUI wantsText;
 
@@ -38,9 +40,26 @@ public class Customer : MonoBehaviour
     [SerializeField] private bool satisfied = false;
     [SerializeField] private bool complained = false;
 
+    [SerializeField] private Slider timerSlide;
+
+    [SerializeField] private Image sliderFill;
+    [SerializeField] private bool startWaiting;
+    [SerializeField] private bool orderUIOn;
+
+    [SerializeField] private GameObject orderWantCanvas;
+    [SerializeField] private GameObject orderTimerCanvas;
+
+    [SerializeField] private GameObject unhappyCanvas;
+    [SerializeField] private GameObject happyCanvas;
+
     // Start is called before the first frame update
     void Start()
-    {
+    {   
+        startWaiting = false;
+        orderUIOn = false;
+        orderTimerCanvas.SetActive(false);
+        orderWantCanvas.SetActive(false);
+        customerStartWaitTime = customerWaitTime;
         ShopFloorControllerRef = GameObject.Find("ShopFloorController");
         spawnerTransform = GameObject.Find("CustomerSpawnLocation(Clone)").transform;
 
@@ -109,6 +128,7 @@ public class Customer : MonoBehaviour
 
         if (transform.position == targetTransform.position){
             atPosition = true;
+            startWaiting = true;
         }
         else{
             atPosition = false;
@@ -118,20 +138,47 @@ public class Customer : MonoBehaviour
             MoveToSlot();
         }
 
-        waitTimeText.text = "Time Left: " + customerWaitTime.ToString("F0") +"s";
+        waitTimeText.text = customerWaitTime.ToString("F0") +"s";
 
-        if (customerWaitTime >= 0.0f){
-            customerWaitTime -= Time.deltaTime;
-        }
+        
 
         if (customerWaitTime <= 0.0f){
             if (complained == false){
                 ShopFloorControllerRef.GetComponent<ShopFloorController>().AddComplaint();
                 complained = true;
+                orderWantCanvas.SetActive(false);
+                orderTimerCanvas.SetActive(false);
+                unhappyCanvas.SetActive(true);
                 Served();
             }
         }
 
+        if (startWaiting == true){
+
+            if (orderUIOn == false){
+                orderWantCanvas.SetActive(true);
+                orderTimerCanvas.SetActive(true);
+                orderUIOn = true;
+            }
+
+            if (customerWaitTime >= 0.0f){
+                customerWaitTime -= Time.deltaTime;
+            }
+
+            timerSlide.value = 1.0f + ((customerWaitTime - customerStartWaitTime) / customerStartWaitTime);
+            if (timerSlide.value >= 0.5f){
+                sliderFill.color = new Color32(69, 255, 0, 100);
+            }
+            else if (timerSlide.value < 0.5f && timerSlide.value > 0.25f){
+                sliderFill.color = new Color32(255, 162, 0, 100);
+            }
+            else{
+                sliderFill.color = new Color32(255, 25, 0, 100);
+            }
+            
+        }
+
+        
 
         // Check if correct armour is in handover box.
         CheckHandoverBox();

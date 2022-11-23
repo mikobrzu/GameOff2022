@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class BlueprintSpawner : MonoBehaviour
 {
@@ -15,6 +16,16 @@ public class BlueprintSpawner : MonoBehaviour
 
     public GameObject playerCam;
 
+    public Sprite arHelmet;
+    public Sprite arShield;
+    public Sprite arChestplate;
+    public Sprite arLeggings;
+    
+    public Image arImage;
+
+    [SerializeField] private int ingotsNeeded;
+    [SerializeField] private GameObject[] ingotImageGO;
+
     //private int spawnedBlueprints = 0;
 
     // Start is called before the first frame update
@@ -24,6 +35,31 @@ public class BlueprintSpawner : MonoBehaviour
             blueprintHeader.text = "Not set.";
         }
         blueprintHeader.text = armourPiece;
+
+        if (armourPiece == "Helmet"){
+            arImage.sprite = arHelmet;
+            ingotsNeeded = 2;
+        }
+        else if (armourPiece == "Shield"){
+            arImage.sprite = arShield;
+            ingotsNeeded = 2;
+        }
+        else if (armourPiece == "Chestplate"){
+            arImage.sprite = arChestplate;
+            ingotsNeeded = 4;
+        }
+        else if (armourPiece == "Leggings"){
+            arImage.sprite = arLeggings;
+            ingotsNeeded = 3;
+        }
+
+        foreach (GameObject i in ingotImageGO){
+            i.SetActive(false);
+        }
+
+        for (int a = 0; a < ingotsNeeded; a++){
+            ingotImageGO[a].SetActive(true);
+        }
     }
 
     // Update is called once per frame
