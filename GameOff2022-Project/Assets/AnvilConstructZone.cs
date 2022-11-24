@@ -24,6 +24,8 @@ public class AnvilConstructZone : MonoBehaviour
     public int numberOfChestplateBP;
     public int numberOfLeggingsBP;
 
+    [SerializeField] private List<GameObject> BPonAnvil = new List<GameObject>();
+
     public int ironIngotNumber;
     public int copperIngotNumber;
 
@@ -92,11 +94,19 @@ public class AnvilConstructZone : MonoBehaviour
             canBuild = true;
         }
 
+        foreach (GameObject bp in BPonAnvil){
+            if (bp.GetComponent<Blueprint>().blueprintInCZ == false){
+                BPonAnvil.Remove(bp);
+            }
+        }
+
         CalculateWeightOnAnvil();
     }
 
     private void OnTriggerEnter(Collider other){
         if (other.tag == "Blueprint"){
+            other.gameObject.GetComponent<Blueprint>().blueprintInCZ = true;
+            BPonAnvil.Add(other.gameObject);
             numberOfBPInZone = numberOfBPInZone + 1;
             if (numberOfBPInZone == 1){
                 activeConstructionBP = other.gameObject.GetComponent<Blueprint>().armourPiece;

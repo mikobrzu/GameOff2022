@@ -42,10 +42,14 @@ public class SmeltingMachine : MonoBehaviour
     public TextMeshProUGUI qualityText;
     public TextMeshProUGUI priceText;
 
+    [SerializeField] private Animator SMAnimator;
+
+    [SerializeField] private GameObject SmokePrefab;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        SMAnimator = gameObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -133,6 +137,8 @@ public class SmeltingMachine : MonoBehaviour
                 outputIngot.GetComponent<Ingot>().price = totalOutputPrice;
             }
 
+            Instantiate(SmokePrefab, ingotSpawnLocation.position, Quaternion.identity);
+
             totalWeight = 0f;
             qualityValue = 0f;
             totalPrice = 0f;
@@ -146,6 +152,18 @@ public class SmeltingMachine : MonoBehaviour
             oreInMachine = 0f;
 
             machineEmpty = true;
+        }
+    }
+
+    public void PulledLever(){
+        Debug.Log("Lever pulled.");
+        //StartCoroutine(PlayLeverPullAnim());
+
+        if (machineEmpty == true){
+            return;
+        }
+        else{
+            MakeIngot();
         }
     }
 }

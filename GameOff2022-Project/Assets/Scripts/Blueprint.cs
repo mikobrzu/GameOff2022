@@ -30,11 +30,14 @@ public class Blueprint : MonoBehaviour
     
     public Image arImage;
 
+    public bool blueprintInCZ;
+
     [SerializeField] private GameObject[] ingotImageGO;
 
     // Start is called before the first frame update
     void Start()
     {
+        blueprintInCZ = false;
         //playerCam = GameObject.Find("Camera");
         blueprintTargetGO = GameObject.Find("BlueprintTarget");
         blueprintTargetPosition = blueprintTargetGO.transform;
@@ -83,9 +86,10 @@ public class Blueprint : MonoBehaviour
 
     public void EquipBlueprint(){
         RB.isKinematic = true;
-        //col.enabled = false;
+        col.enabled = false;
         blueprintEquipped = true;
         transform.SetParent(playerCam.transform, true);
+        blueprintInCZ = false;
         //gameObject.layer = LayerMask.NameToLayer("Tool");
         //foreach (Transform child in transform.GetComponentsInChildren<Transform>()){
             //child.gameObject.layer = LayerMask.NameToLayer("Tool");
@@ -96,7 +100,7 @@ public class Blueprint : MonoBehaviour
     public void UnequipBlueprint(){
         blueprintEquipped = false;
         RB.isKinematic = false;
-        //col.enabled = true;
+        col.enabled = true;
         transform.parent = null;
         //gameObject.layer = LayerMask.NameToLayer("Interactable");
         //foreach (Transform child in transform.GetComponentsInChildren<Transform>()){

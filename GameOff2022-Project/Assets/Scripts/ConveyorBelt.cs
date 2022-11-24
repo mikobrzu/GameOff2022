@@ -17,6 +17,13 @@ public class ConveyorBelt : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        foreach (GameObject o in onBelt){
+            if (o == null){
+                onBelt.Remove(o);
+                Destroy(o);
+            }
+        }
+
         for (int i = 0; i <= onBelt.Count -1; i++){
             onBelt[i].GetComponent<Rigidbody>().velocity = speed * direction * Time.deltaTime;
         }

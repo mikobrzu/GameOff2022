@@ -20,10 +20,12 @@ public class ShopFloorController : MonoBehaviour
     [SerializeField] List<GameObject> customersInShop;
 
     [SerializeField] private int complaints;
-    [SerializeField] private int maxComplaints = 3;
+    [SerializeField] private int maxComplaints = 4;
     [SerializeField] private TextMeshProUGUI complaintsText;
     [SerializeField] private bool closeShop;
     //[SerializeField] private GameObject[] emptyCustomerSlots;
+
+    [SerializeField] private GameObject LevelLoaderRef;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +36,8 @@ public class ShopFloorController : MonoBehaviour
         customerSlots = GameObject.FindGameObjectsWithTag("CustomerSlot");
 
         maxNumberOfCustomers = customerSlots.Length;
+
+        LevelLoaderRef = GameObject.Find("LevelLoader");
 
         GenWaitTime();
     }
@@ -88,9 +92,13 @@ public class ShopFloorController : MonoBehaviour
             }
         }
 
-        complaintsText.text = "Complaints: " + complaints.ToString("F0") + "/3";
+        complaintsText.text = "Complaints: " + complaints.ToString("F0") + "/" + maxComplaints.ToString("F0");
         if (complaints >= maxComplaints){
             closeShop = true;
+        }
+
+        if (closeShop == true){
+            LevelLoaderRef.GetComponent<LevelLoader>().FinishGame();
         }
     }
 
@@ -121,5 +129,9 @@ public class ShopFloorController : MonoBehaviour
 
     public void AddComplaint(){
         complaints += 1;
+    }
+
+    public int GetCurrentNumberOfComplaints(){
+        return complaints;
     }
 }

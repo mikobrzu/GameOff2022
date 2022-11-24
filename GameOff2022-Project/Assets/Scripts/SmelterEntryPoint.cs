@@ -5,6 +5,7 @@ using UnityEngine;
 public class SmelterEntryPoint : MonoBehaviour
 {
     public GameObject SMRef;
+    public GameObject BeltRef;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,11 @@ public class SmelterEntryPoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other){
         if (other.tag == "Pickup"){
+
+            // Remove from belt.
+            BeltRef.GetComponent<ConveyorBelt>().onBelt.Remove(other.gameObject);
+
+            // Check if Game Object was removed.
 
             SMRef.GetComponent<SmeltingMachine>().AddOreToMachine(other.GetComponent<Ore>().oreType, other.GetComponent<Ore>().weight, other.GetComponent<Ore>().quality, other.GetComponent<Ore>().price);
             Destroy(other.gameObject);
