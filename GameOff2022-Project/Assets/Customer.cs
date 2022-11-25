@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Customer : MonoBehaviour
 {
@@ -52,9 +53,12 @@ public class Customer : MonoBehaviour
     [SerializeField] private GameObject unhappyCanvas;
     [SerializeField] private GameObject happyCanvas;
 
+    [SerializeField] private string currentOpenScene;
+
     // Start is called before the first frame update
     void Start()
     {   
+        DontDestroyOnLoad(transform.gameObject);
         startWaiting = false;
         orderUIOn = false;
         orderTimerCanvas.SetActive(false);
@@ -74,10 +78,10 @@ public class Customer : MonoBehaviour
             wantArmour = possibleArmour[arrayRPointer];
 
             if (wantArmour == "Helmet" || wantArmour == "Shield" || wantArmour == "Chestplate"){
-                wantsText.text = "I'd like a " + wantArmour + " please!";
+                wantsText.text = "I'd like a <color=yellow>" + wantArmour + "</color> please!";
             }
             else {
-                wantsText.text = "I'd like some " + wantArmour + " please!";
+                wantsText.text = "I'd like some <color=yellow>" + wantArmour + "</color> please!";
             }
         }
         else if (difficulty == 2){
@@ -98,14 +102,14 @@ public class Customer : MonoBehaviour
             // }
 
             if (wantArmour == "Leggings"){
-                wantsText.text = "I'd like some " + wantMaterialType + " " + wantArmour + " please!";
+                wantsText.text = "I'd like some <color=yellow>" + wantMaterialType + " " + wantArmour + "</color> please!";
             }
             else{
                 if (wantMaterialType == "Iron"){
-                    wantsText.text = "I'd like an " + wantMaterialType + " " + wantArmour + " please!";
+                    wantsText.text = "I'd like an <color=yellow>" + wantMaterialType + " " + wantArmour + "</color> please!";
                 }
                 else{
-                    wantsText.text = "I'd like a " + wantMaterialType + " " + wantArmour + " please!";
+                    wantsText.text = "I'd like a <color=yellow>" + wantMaterialType + " " + wantArmour + "</color> please!";
                 }
             }
         }
@@ -125,6 +129,7 @@ public class Customer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        currentScene = SceneManager.GetActiveScene().name;
 
         if (transform.position == targetTransform.position){
             atPosition = true;
@@ -161,7 +166,7 @@ public class Customer : MonoBehaviour
                 orderUIOn = true;
             }
 
-            if (customerWaitTime >= 0.0f){
+            if (customerWaitTime >= 0.0f && currentScene == "Shop"){
                 customerWaitTime -= Time.deltaTime;
             }
 
@@ -177,8 +182,6 @@ public class Customer : MonoBehaviour
             }
             
         }
-
-        
 
         // Check if correct armour is in handover box.
         CheckHandoverBox();

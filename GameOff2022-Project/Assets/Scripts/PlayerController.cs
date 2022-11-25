@@ -28,9 +28,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject gamePauseCanvas;
     [SerializeField] private GameObject gameUICanvas;
 
+    [SerializeField] private bool holdingBP;
+
     // Start is called before the first frame update
     void Start()
     {
+        holdingBP = false;
+
         controller = GetComponent<CharacterController>();
         if (lockCursor)
         {
@@ -99,5 +103,13 @@ public class PlayerController : MonoBehaviour
 
     void ToggleGamePause(){
         gamePause = !gamePause;
+    }
+
+    public void SetHoldingBP(bool holding){
+        holdingBP = holding;
+    }
+
+    public bool GetHoldingBP(){
+        return holdingBP;
     }
 }

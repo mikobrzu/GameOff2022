@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class ShopFloorController : MonoBehaviour
 {
@@ -27,9 +28,12 @@ public class ShopFloorController : MonoBehaviour
 
     [SerializeField] private GameObject LevelLoaderRef;
 
+    [SerializeField] private string currentScene;
+
     // Start is called before the first frame update
     void Start()
     {
+        DontDestroyOnLoad(transform.gameObject);
         complaints = 0;
         CustomerSpawner = GameObject.Find("CustomerSpawnLocation(Clone)");
 
@@ -45,7 +49,7 @@ public class ShopFloorController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (countdownToSpawn >= 0.0f){
+        if (countdownToSpawn >= 0.0f && currentScene == "Shop"){
             countdownToSpawn -= Time.deltaTime;
         }
         else{

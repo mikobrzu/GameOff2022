@@ -64,6 +64,15 @@ public class AnvilConstructZone : MonoBehaviour
 
     [SerializeField] private float lightArmourMaxWeight;
 
+    [SerializeField] private GameObject[] ingotImageGO;
+
+    [SerializeField] private Sprite arHelmet;
+    [SerializeField] private Sprite arShield;
+    [SerializeField] private Sprite arChestplate;
+    [SerializeField] private Sprite arLeggings;
+    
+    [SerializeField] private Image arImage;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -89,16 +98,83 @@ public class AnvilConstructZone : MonoBehaviour
 
         armourPieceUIText.text = activeConstructionBP;
         ingotRequirementUIText.text = "Ingot Requirement: " + ingotRequirement.ToString("F0");
+        for (int a = 0; a < ingotImageGO.Length; a++){
+            ingotImageGO[a].SetActive(false);
+        }
+        for (int a = 0; a < ingotRequirement; a++){
+            ingotImageGO[a].SetActive(true);
+        }
+
+        if (activeConstructionBP == "Helmet"){
+            arImage.sprite = arHelmet;
+        }
+        else if (activeConstructionBP == "Shield"){
+            arImage.sprite = arShield;
+        }
+        else if (activeConstructionBP == "Chestplate"){
+            arImage.sprite = arChestplate;
+        }
+        else if (activeConstructionBP == "Leggings"){
+            arImage.sprite = arLeggings;
+        }
 
         if (numberOfBPInZone > 0 && (ironIngotNumber >= ingotRequirement || copperIngotNumber >= ingotRequirement)){
             canBuild = true;
         }
 
-        foreach (GameObject bp in BPonAnvil){
-            if (bp.GetComponent<Blueprint>().blueprintInCZ == false){
-                BPonAnvil.Remove(bp);
+        for (int i = 0; i < BPonAnvil.Count; i++){
+            if (BPonAnvil[i].GetComponent<Blueprint>().blueprintInCZ == false){
+                
+                if (BPonAnvil[i].GetComponent<Blueprint>().armourPiece == "Helmet"){
+                    numberOfHelmetBP = numberOfHelmetBP - 1;
+                }
+                if (BPonAnvil[i].GetComponent<Blueprint>().armourPiece == "Shield"){
+                    numberOfShieldBP = numberOfShieldBP - 1;
+                }
+                if (BPonAnvil[i].GetComponent<Blueprint>().armourPiece == "Chestplate"){
+                    numberOfChestplateBP = numberOfChestplateBP - 1;
+                }
+                if (BPonAnvil[i].GetComponent<Blueprint>().armourPiece == "Leggings"){
+                    numberOfLeggingsBP = numberOfLeggingsBP - 1;
+                }
+
+                BPonAnvil[i].transform.parent = null;
+
+                // if (activeConstructionBP == BPonAnvil[i].GetComponent<Blueprint>().armourPiece){
+                //     if (numberOfBPInZone > 0){
+                //         ChangeActiveBlueprint();
+                //     }
+                // }
+
+                
+
+                numberOfBPInZone = numberOfBPInZone - 1;
+                
+                BPonAnvil.Remove(BPonAnvil[i]);
+                ChangeActiveBlueprint();
             }
         }
+
+        //numberOfHelmetBP = 0;
+
+        // for (int i = 0; i < BPonAnvil.Count; i++){
+        //     if (BPonAnvil[i].GetComponent<Blueprint>().blueprintInCZ == true){
+        //         if (BPonAnvil[i].GetComponent<Blueprint>().armourPiece == "Helmet"){
+        //             numberOfHelmetBP = numberOfHelmetBP + 1;
+        //         }
+        //         if (BPonAnvil[i].GetComponent<Blueprint>().armourPiece == "Shield"){
+        //             numberOfShieldBP = numberOfShieldBP + 1;
+        //         }
+        //         if (BPonAnvil[i].GetComponent<Blueprint>().armourPiece == "Chestplate"){
+        //             numberOfChestplateBP = numberOfChestplateBP + 1;
+        //         }
+        //         if (BPonAnvil[i].GetComponent<Blueprint>().armourPiece == "Leggings"){
+        //             numberOfLeggingsBP = numberOfLeggingsBP + 1;
+        //         }
+        //     }
+        // }
+
+        //numberOfBPInZone = BPonAnvil.Count;
 
         CalculateWeightOnAnvil();
     }
@@ -108,6 +184,7 @@ public class AnvilConstructZone : MonoBehaviour
             other.gameObject.GetComponent<Blueprint>().blueprintInCZ = true;
             BPonAnvil.Add(other.gameObject);
             numberOfBPInZone = numberOfBPInZone + 1;
+
             if (numberOfBPInZone == 1){
                 activeConstructionBP = other.gameObject.GetComponent<Blueprint>().armourPiece;
                 ingotRequirement = other.gameObject.GetComponent<Blueprint>().ingotRequirement;
@@ -145,36 +222,31 @@ public class AnvilConstructZone : MonoBehaviour
     }
 
     private void OnTriggerExit(Collider other){
-        if (other.tag == "Blueprint"){
-            numberOfBPInZone = numberOfBPInZone - 1;
+        // if (other.tag == "Blueprint"){
+        //     numberOfBPInZone = numberOfBPInZone - 1;
 
-            // Check current blueprint in collider against armour piece.
-            // If none found, change active armour piece to something else.
+        //     // Check current blueprint in collider against armour piece.
+        //     // If none found, change active armour piece to something else.
 
-            // 
+        //     // 
 
-            if (other.gameObject.GetComponent<Blueprint>().armourPiece == "Helmet"){
-                numberOfHelmetBP = numberOfHelmetBP - 1;
-            }
-            if (other.gameObject.GetComponent<Blueprint>().armourPiece == "Shield"){
-                numberOfShieldBP = numberOfShieldBP - 1;
-            }
-            if (other.gameObject.GetComponent<Blueprint>().armourPiece == "Chestplate"){
-                numberOfChestplateBP = numberOfChestplateBP - 1;
-            }
-            if (other.gameObject.GetComponent<Blueprint>().armourPiece == "Leggings"){
-                numberOfLeggingsBP = numberOfLeggingsBP - 1;
-            }
+        //     if (other.gameObject.GetComponent<Blueprint>().armourPiece == "Helmet"){
+        //         numberOfHelmetBP = numberOfHelmetBP - 1;
+        //     }
+        //     if (other.gameObject.GetComponent<Blueprint>().armourPiece == "Shield"){
+        //         numberOfShieldBP = numberOfShieldBP - 1;
+        //     }
+        //     if (other.gameObject.GetComponent<Blueprint>().armourPiece == "Chestplate"){
+        //         numberOfChestplateBP = numberOfChestplateBP - 1;
+        //     }
+        //     if (other.gameObject.GetComponent<Blueprint>().armourPiece == "Leggings"){
+        //         numberOfLeggingsBP = numberOfLeggingsBP - 1;
+        //     }
 
-            if (activeConstructionBP == other.gameObject.GetComponent<Blueprint>().armourPiece){
-            //     return;
-                if (numberOfBPInZone > 0){
-                    ChangeActiveBlueprint();
-                }
-            }
+            
 
-            other.transform.parent = null;
-        }
+        //     other.transform.parent = null;
+        // }
 
         if (other.tag == "Pickup"){
             if (other.GetComponent<Ingot>() != null){
@@ -191,28 +263,31 @@ public class AnvilConstructZone : MonoBehaviour
     }
 
     void ChangeActiveBlueprint(){
-        List<string> possibleOptions = new List<string>();
+        if (numberOfBPInZone > 0){
+            List<string> possibleOptions = new List<string>();
 
-        if (numberOfHelmetBP > 0){
-            possibleOptions.Add("Helmet");
+            if (numberOfHelmetBP > 0){
+                possibleOptions.Add("Helmet");
+            }
+            
+            if (numberOfShieldBP > 0){
+                possibleOptions.Add("Shield");
+            }
+
+            if (numberOfChestplateBP > 0){
+                possibleOptions.Add("Chestplate");
+            }
+
+            if (numberOfLeggingsBP > 0){
+                possibleOptions.Add("Leggings");
+            }
+
+            int randomNum = Random.Range(0, possibleOptions.Count);
+            string randomString = possibleOptions[randomNum];
+
+            activeConstructionBP = randomString;
         }
         
-        if (numberOfShieldBP > 0){
-            possibleOptions.Add("Shield");
-        }
-
-        if (numberOfChestplateBP > 0){
-            possibleOptions.Add("Chestplate");
-        }
-
-        if (numberOfLeggingsBP > 0){
-            possibleOptions.Add("Leggings");
-        }
-
-        int randomNum = Random.Range(0, possibleOptions.Count);
-        string randomString = possibleOptions[randomNum];
-
-        activeConstructionBP = randomString;
     }
 
     public void CalculateWeightOnAnvil(){
@@ -262,6 +337,12 @@ public class AnvilConstructZone : MonoBehaviour
 
     public void ConstructArmourPiece(){
         if (canBuild == true){
+
+            // Remove from BPonAnvil list.
+            for (int i = 0; i < BPonAnvil.Count; i++){
+                BPonAnvil.Remove(BPonAnvil[i]);
+            }
+
             foreach (Transform child in transform){
                 Destroy(child.gameObject);
             }

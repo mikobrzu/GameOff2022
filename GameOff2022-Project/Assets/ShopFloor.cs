@@ -21,6 +21,7 @@ public class ShopFloor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        DontDestroyOnLoad(transform.gameObject);
         slotSpawnPointA = counterPointA;
         slotSpawnPointA.position = slotSpawnPointA.position + new Vector3(2f,0f,0f);
         slotSpawnPointB = counterPointB;

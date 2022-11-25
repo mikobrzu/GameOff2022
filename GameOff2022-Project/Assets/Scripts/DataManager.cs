@@ -31,6 +31,11 @@ public class DataManager : MonoBehaviour
         Scene scene = SceneManager.GetActiveScene();
         if (scene.name == "Shop"){
             LoadItemsInWorld();
+
+            // Load any armour.
+            LoadArmourInWorld();
+
+            // Load any customer data.
         }
         else{
             return;
@@ -176,6 +181,10 @@ public class DataManager : MonoBehaviour
         }
 
         ItemsInWorldDB.items.Clear();
+    }
+
+    public void LoadArmourInWorld(){
+        Debug.Log("Loading armour into shop scene.");
     }
 
     public void ClearAllOreFromScene(){

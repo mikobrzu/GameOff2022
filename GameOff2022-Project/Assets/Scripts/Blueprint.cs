@@ -34,9 +34,12 @@ public class Blueprint : MonoBehaviour
 
     [SerializeField] private GameObject[] ingotImageGO;
 
+    [SerializeField] private GameObject PlayerRef;
+
     // Start is called before the first frame update
     void Start()
     {
+        PlayerRef = GameObject.Find("Player");
         blueprintInCZ = false;
         //playerCam = GameObject.Find("Camera");
         blueprintTargetGO = GameObject.Find("BlueprintTarget");
@@ -85,26 +88,30 @@ public class Blueprint : MonoBehaviour
     }
 
     public void EquipBlueprint(){
-        RB.isKinematic = true;
-        col.enabled = false;
-        blueprintEquipped = true;
-        transform.SetParent(playerCam.transform, true);
-        blueprintInCZ = false;
-        //gameObject.layer = LayerMask.NameToLayer("Tool");
-        //foreach (Transform child in transform.GetComponentsInChildren<Transform>()){
-            //child.gameObject.layer = LayerMask.NameToLayer("Tool");
-        //}
-        //transform.position = new Vector3(0f,0f,0f);
+        if (PlayerRef.GetComponent<PlayerController>().GetHoldingBP() == false){
+            RB.isKinematic = true;
+            col.enabled = false;
+            blueprintEquipped = true;
+            transform.SetParent(playerCam.transform, true);
+            blueprintInCZ = false;
+            
+            PlayerRef.GetComponent<PlayerController>().SetHoldingBP(true);
+        }
+        
     }
 
     public void UnequipBlueprint(){
-        blueprintEquipped = false;
-        RB.isKinematic = false;
-        col.enabled = true;
-        transform.parent = null;
-        //gameObject.layer = LayerMask.NameToLayer("Interactable");
-        //foreach (Transform child in transform.GetComponentsInChildren<Transform>()){
-        //    child.gameObject.layer = LayerMask.NameToLayer("Interactable");
-        //}
+        if (PlayerRef.GetComponent<PlayerController>().GetHoldingBP() == true){
+            blueprintEquipped = false;
+            RB.isKinematic = false;
+            col.enabled = true;
+            transform.parent = null;
+
+            PlayerRef.GetComponent<PlayerController>().SetHoldingBP(false);
+        }
+    }
+
+    public void SetPlayerRef(GameObject p){
+        PlayerRef = p;
     }
 }

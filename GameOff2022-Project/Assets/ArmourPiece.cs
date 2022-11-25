@@ -15,6 +15,7 @@ public class ArmourPiece : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        DontDestroyOnLoad(transform.gameObject);
         CalculatePiecePrice();
     }
 
