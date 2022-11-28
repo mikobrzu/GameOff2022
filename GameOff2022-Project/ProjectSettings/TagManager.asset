@@ -11,6 +11,9 @@ TagManager:
   - Armour
   - CustomerSlot
   - Customer
+  - ShopFloorController
+  - ShopFloor
+  - CustomerSpawnLocation
   layers:
   - Default
   - TransparentFX

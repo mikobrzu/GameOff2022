@@ -18,25 +18,42 @@ public class ShopFloor : MonoBehaviour
 
     [SerializeField] private GameObject customerSpawnLocationPrefab;
 
+    [SerializeField] private bool spawnedSlots;
+
+    private void Awake(){
+        GameObject[] obj = GameObject.FindGameObjectsWithTag("ShopFloor");
+        if (obj.Length > 1){
+            Destroy(this.gameObject);
+        }
+        else{
+            DontDestroyOnLoad(this.gameObject);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        DontDestroyOnLoad(transform.gameObject);
-        slotSpawnPointA = counterPointA;
-        slotSpawnPointA.position = slotSpawnPointA.position + new Vector3(2f,0f,0f);
-        slotSpawnPointB = counterPointB;
-        slotSpawnPointB.position = slotSpawnPointB.position + new Vector3(-1f,0f,0f);
-        counterDistance = Vector3.Distance(slotSpawnPointA.position, slotSpawnPointB.position);
-        spaceBetweenSlots = counterDistance / counterSlots;
+        //DontDestroyOnLoad(transform.gameObject);
 
-        transform.position = new Vector3(slotSpawnPointA.position.x + floorStartXOffset, 0f, slotSpawnPointA.position.z + floorStartZOffset);
+        if (spawnedSlots == false || spawnedSlots == null){
+            slotSpawnPointA = counterPointA;
+            slotSpawnPointA.position = slotSpawnPointA.position + new Vector3(2f,0f,0f);
+            slotSpawnPointB = counterPointB;
+            slotSpawnPointB.position = slotSpawnPointB.position + new Vector3(-1f,0f,0f);
+            counterDistance = Vector3.Distance(slotSpawnPointA.position, slotSpawnPointB.position);
+            spaceBetweenSlots = counterDistance / counterSlots;
 
-        for (int i = 0; i < counterSlots; i++){
-            GameObject slot = Instantiate(customerSlotPrefab, transform.position + new Vector3(spaceBetweenSlots * i, 0f, 0f), Quaternion.identity);
-            slot.GetComponent<CustomerSlot>().SetSlotID(i);
+            transform.position = new Vector3(slotSpawnPointA.position.x + floorStartXOffset, 0f, slotSpawnPointA.position.z + floorStartZOffset);
+
+            for (int i = 0; i < counterSlots; i++){
+                GameObject slot = Instantiate(customerSlotPrefab, transform.position + new Vector3(spaceBetweenSlots * i, 0f, 0f), Quaternion.identity);
+                slot.GetComponent<CustomerSlot>().SetSlotID(i);
+            }
+
+            Instantiate(customerSpawnLocationPrefab, transform.position + new Vector3(-5f, 0f, 0f), Quaternion.identity);
+            spawnedSlots = true;
         }
-
-        Instantiate(customerSpawnLocationPrefab, transform.position + new Vector3(-5f, 0f, 0f), Quaternion.identity);
+        
     }
 
     // Update is called once per frame

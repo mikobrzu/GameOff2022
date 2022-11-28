@@ -133,3 +133,10 @@ MonoBehaviour:
   pieceWeight: 0
   pieceQuality: 0
   piecePrice: 0
+  beingHeld: 0
+  defaultMat: {fileID: -876546973899608171, guid: 211943c092a30a245b065a1fe71ce805,
+    type: 3}
+  allMR:
+  - {fileID: 8985807920745823624}
+  transparentMat: {fileID: 2100000, guid: ce72e350bfa799646a83d9921682a607, type: 2}
+  mR: {fileID: 8985807920745823624}

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ComplaintsBoard : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class ComplaintsBoard : MonoBehaviour
     [SerializeField] private GameObject[] arrowGO;
 
     [SerializeField] private GameObject ShowFloorRef;
+
+    [SerializeField] private TextMeshProUGUI complaintsText;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +25,7 @@ public class ComplaintsBoard : MonoBehaviour
     void Update()
     {
         currentNumberOfComplaints = ShowFloorRef.GetComponent<ShopFloorController>().GetCurrentNumberOfComplaints();
+        complaintsText.text = "Complaints: " + currentNumberOfComplaints.ToString("F0") + "/" + ShowFloorRef.GetComponent<ShopFloorController>().GetMaxComplaints().ToString("F0");
 
         if (currentNumberOfComplaints == 0){
             foreach (GameObject c in complaintPaperGO){

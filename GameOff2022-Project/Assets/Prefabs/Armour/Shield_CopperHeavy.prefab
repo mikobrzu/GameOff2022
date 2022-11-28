@@ -166,6 +166,14 @@ MonoBehaviour:
   pieceWeight: 0
   pieceQuality: 0
   piecePrice: 0
+  beingHeld: 0
+  defaultMat: {fileID: -876546973899608171, guid: 38b19a85b90ec4046ba7fd22ee1a87dd,
+    type: 3}
+  allMR:
+  - {fileID: 8849094184626392042}
+  - {fileID: 6328229924111990783}
+  transparentMat: {fileID: 2100000, guid: ce72e350bfa799646a83d9921682a607, type: 2}
+  mR: {fileID: 8849094184626392042}
 --- !u!1 &8548600529175524426
 GameObject:
   m_ObjectHideFlags: 0

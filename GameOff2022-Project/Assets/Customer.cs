@@ -53,7 +53,7 @@ public class Customer : MonoBehaviour
     [SerializeField] private GameObject unhappyCanvas;
     [SerializeField] private GameObject happyCanvas;
 
-    [SerializeField] private string currentOpenScene;
+    [SerializeField] private Scene currentOpenScene;
 
     // Start is called before the first frame update
     void Start()
@@ -129,7 +129,7 @@ public class Customer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentScene = SceneManager.GetActiveScene().name;
+        currentOpenScene = SceneManager.GetActiveScene();
 
         if (transform.position == targetTransform.position){
             atPosition = true;
@@ -166,7 +166,7 @@ public class Customer : MonoBehaviour
                 orderUIOn = true;
             }
 
-            if (customerWaitTime >= 0.0f && currentScene == "Shop"){
+            if (customerWaitTime >= 0.0f && currentOpenScene.name == "Shop"){
                 customerWaitTime -= Time.deltaTime;
             }
 

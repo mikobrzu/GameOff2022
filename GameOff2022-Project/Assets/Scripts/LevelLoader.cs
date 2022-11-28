@@ -16,6 +16,10 @@ public class LevelLoader : MonoBehaviour
         StartCoroutine(LoadSceneWithTransition("GameOver"));
     }
 
+    public void QuitApplication(){
+        Application.Quit();
+    }
+
     IEnumerator LoadSceneWithTransition(string levelName){
         transition.SetTrigger("Start");
         yield return new WaitForSeconds(transitionTime);

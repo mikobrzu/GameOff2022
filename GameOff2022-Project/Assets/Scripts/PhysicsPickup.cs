@@ -13,9 +13,40 @@ public class PhysicsPickup : MonoBehaviour
 
     [SerializeField] private GameObject Player;
 
+    [SerializeField] private QualityCheckMachine QCM;
+
     void Update(){
         if (Input.GetKeyDown(KeyCode.E)){
             if (CurrentObject){
+                
+                if (CurrentObject.GetComponent<ArmourPiece>() != null){
+                    CurrentObject.GetComponent<ArmourPiece>().SetBeingHeld(false);
+                }
+
+                //Debug.Log(CurrentObject);
+                if (CurrentObject.GetComponent<ArmourPiece>() != null && QCM != null){
+                    if (QCM.GetPlayerInZone() == true && QCM.GetNumberOfPiecesInCheckZone() == 0){
+                        if (CurrentObject.GetComponent<ArmourPiece>().GetArmourPieceString() == "Helmet"){
+                            CurrentObject.transform.position = new Vector3(-9.219f, 1.047061f, -10.94439f);
+                            Debug.Log("Placed helmet.");
+                        //CurrentObject.transform.rotation = new Quaternion();
+                        }
+                        else if (CurrentObject.GetComponent<ArmourPiece>().GetArmourPieceString() == "Shield"){
+                            CurrentObject.transform.position = new Vector3(-9.225f, 0.847f, -10.872f);
+                            Debug.Log("Placed shield.");
+                        }
+                        else if (CurrentObject.GetComponent<ArmourPiece>().GetArmourPieceString() == "Leggings"){
+                            CurrentObject.transform.position = new Vector3(-9.213f, 1.244f, -10.90586f);
+                            Debug.Log("Placed leggings.");
+                        }
+                        else if (CurrentObject.GetComponent<ArmourPiece>().GetArmourPieceString() == "Chestplate"){
+                            CurrentObject.transform.position = new Vector3(-9.225f, 1.385613f, -10.875f);
+                            Debug.Log("Placed chestplate.");
+                        }
+                    }
+                    Debug.Log("Dropped armour piece object.");
+                }
+
                 CurrentObject.useGravity = true;
                 Physics.IgnoreCollision(CurrentObject.GetComponent<Collider>(), Player.GetComponent<Collider>(), false);
                 CurrentObject = null;
@@ -27,6 +58,9 @@ public class PhysicsPickup : MonoBehaviour
                 CurrentObject = HitInfo.rigidbody;
                 CurrentObject.useGravity = false;
                 Physics.IgnoreCollision(CurrentObject.GetComponent<Collider>(), Player.GetComponent<Collider>(), true);
+                if (CurrentObject.GetComponent<ArmourPiece>() != null){
+                    CurrentObject.GetComponent<ArmourPiece>().SetBeingHeld(true);
+                }
             }
         }
     }

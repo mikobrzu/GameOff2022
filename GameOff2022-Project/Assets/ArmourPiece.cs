@@ -12,6 +12,14 @@ public class ArmourPiece : MonoBehaviour
     [SerializeField] private float pieceQuality;
     [SerializeField] private float piecePrice;
 
+    [SerializeField] private bool beingHeld;
+
+    [SerializeField] private Material defaultMat;
+    [SerializeField] private MeshRenderer[] allMR;
+    [SerializeField] private Material transparentMat;
+
+    [SerializeField] private MeshRenderer mR;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +30,18 @@ public class ArmourPiece : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (beingHeld == true){
+            foreach (MeshRenderer meshr in allMR){
+                meshr.material = transparentMat;
+            }
+            //mR.material = transparentMat;
+        }
+        else{
+            foreach (MeshRenderer meshr in allMR){
+                meshr.material = defaultMat;
+            }
+            //mR.material = defaultMat;
+        }
     }
 
     public void SetWeight(float materialsWeight){
@@ -51,5 +70,13 @@ public class ArmourPiece : MonoBehaviour
 
     public string GetArmourTypeString(){
         return aType;
+    }
+
+    public float GetPieceQuality(){
+        return pieceQuality;
+    }
+
+    public void SetBeingHeld(bool h){
+        beingHeld = h;
     }
 }

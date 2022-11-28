@@ -22,18 +22,28 @@ public class ShopFloorController : MonoBehaviour
 
     [SerializeField] private int complaints;
     [SerializeField] private int maxComplaints = 4;
-    [SerializeField] private TextMeshProUGUI complaintsText;
+    //[SerializeField] private TextMeshProUGUI complaintsText;
     [SerializeField] private bool closeShop;
     //[SerializeField] private GameObject[] emptyCustomerSlots;
 
     [SerializeField] private GameObject LevelLoaderRef;
 
-    [SerializeField] private string currentScene;
+    //[SerializeField] private string currentScene;
+
+    private void Awake(){
+        GameObject[] obj = GameObject.FindGameObjectsWithTag("ShopFloorController");
+        if (obj.Length > 1){
+            Destroy(this.gameObject);
+        }
+        else{
+            DontDestroyOnLoad(this.gameObject);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        DontDestroyOnLoad(transform.gameObject);
+        //DontDestroyOnLoad(transform.gameObject);
         complaints = 0;
         CustomerSpawner = GameObject.Find("CustomerSpawnLocation(Clone)");
 
@@ -49,8 +59,20 @@ public class ShopFloorController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (countdownToSpawn >= 0.0f && currentScene == "Shop"){
+        if (CustomerSpawner == null){
+            CustomerSpawner = GameObject.Find("CustomerSpawnLocation(Clone)");
+        }
+
+        if (LevelLoaderRef == null){
+            LevelLoaderRef = GameObject.Find("LevelLoader");
+        }
+
+
+        if (countdownToSpawn >= 0.0f && SceneManager.GetActiveScene().name == "Shop"){
             countdownToSpawn -= Time.deltaTime;
+        }
+        else if (countdownToSpawn >= 0.0f && SceneManager.GetActiveScene().name != "Shop") {
+            countdownToSpawn = countdownToSpawn;
         }
         else{
             if (numberOfCustomers < maxNumberOfCustomers){
@@ -96,7 +118,7 @@ public class ShopFloorController : MonoBehaviour
             }
         }
 
-        complaintsText.text = "Complaints: " + complaints.ToString("F0") + "/" + maxComplaints.ToString("F0");
+        //complaintsText.text = "Complaints: " + complaints.ToString("F0") + "/" + maxComplaints.ToString("F0");
         if (complaints >= maxComplaints){
             closeShop = true;
         }
@@ -137,5 +159,9 @@ public class ShopFloorController : MonoBehaviour
 
     public int GetCurrentNumberOfComplaints(){
         return complaints;
+    }
+
+    public int GetMaxComplaints(){
+        return maxComplaints;
     }
 }
