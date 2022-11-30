@@ -63,6 +63,9 @@ public class Customer : MonoBehaviour
 
     [SerializeField] private GameObject HandoverBox;
 
+    [SerializeField] private PlayerData PlayerDataRef;
+    [SerializeField] private GameObject PlayerRef;
+
     // Start is called before the first frame update
     void Start()
     {   
@@ -74,6 +77,9 @@ public class Customer : MonoBehaviour
         
         ShopFloorControllerRef = GameObject.Find("ShopFloorController");
         spawnerTransform = GameObject.Find("CustomerSpawnLocation(Clone)").transform;
+
+        PlayerRef = GameObject.Find("Player");
+        PlayerDataRef = PlayerRef.GetComponent<PlayerData>();
 
         HandoverBox.SetActive(false);
 
@@ -271,6 +277,34 @@ public class Customer : MonoBehaviour
         return assignedSlot;
     }
 
+    private void CalculateAndGiveGold(ArmourPiece aP){
+        float goldToGive = 0.0f;
+
+        // Gold To Give = Armour Price
+        goldToGive = aP.GetComponent<ArmourPiece>().GetPiecePrice();
+
+        // (20% if above 75% wait time, 10% if above 50% wait time, -10% if below 25% of wait time)
+
+        if ((customerWaitTime/customerStartWaitTime) > 0.75f){
+            goldToGive = goldToGive * 1.2f;
+        }
+        else if ((customerWaitTime/customerStartWaitTime) > 0.5f){
+            goldToGive = goldToGive * 1.1f;
+        }
+        else if ((customerWaitTime/customerStartWaitTime) < 0.25f){
+            goldToGive = goldToGive * 0.9f;
+        }
+
+        if (difficulty == 4){
+            goldToGive = goldToGive + 20.0f;
+        }
+        else if (difficulty == 3){
+            goldToGive = goldToGive + 10.0f;
+        }
+
+        PlayerDataRef.playerGold = PlayerDataRef.playerGold + goldToGive;
+    }
+
     private void CheckHandoverBox(){
         //string inBoxArmourPiece;
         //string inBoxArmourMaterial;
@@ -282,6 +316,7 @@ public class Customer : MonoBehaviour
                     Destroy(a);
                     satisfied = true;
                     SMRef.PlaySound(happyCustomerAC);
+                    CalculateAndGiveGold(a.GetComponent<ArmourPiece>());
                     Served(true);
                 }
             }
@@ -291,6 +326,7 @@ public class Customer : MonoBehaviour
                     Destroy(a);
                     satisfied = true;
                     SMRef.PlaySound(happyCustomerAC);
+                    CalculateAndGiveGold(a.GetComponent<ArmourPiece>());
                     Served(true);
                 }
             }
@@ -304,6 +340,7 @@ public class Customer : MonoBehaviour
                             Destroy(a);
                             satisfied = true;
                             SMRef.PlaySound(happyCustomerAC);
+                            CalculateAndGiveGold(a.GetComponent<ArmourPiece>());
                             Served(true);
                         }
                     }
@@ -314,6 +351,7 @@ public class Customer : MonoBehaviour
                             Destroy(a);
                             satisfied = true;
                             SMRef.PlaySound(happyCustomerAC);
+                            CalculateAndGiveGold(a.GetComponent<ArmourPiece>());
                             Served(true);
                         }
                     }
@@ -330,6 +368,7 @@ public class Customer : MonoBehaviour
                             Destroy(a);
                             satisfied = true;
                             SMRef.PlaySound(happyCustomerAC);
+                            CalculateAndGiveGold(a.GetComponent<ArmourPiece>());
                             Served(true);
                         }
                     }
@@ -340,6 +379,7 @@ public class Customer : MonoBehaviour
                             Destroy(a);
                             satisfied = true;
                             SMRef.PlaySound(happyCustomerAC);
+                            CalculateAndGiveGold(a.GetComponent<ArmourPiece>());
                             Served(true);
                         }
                     }

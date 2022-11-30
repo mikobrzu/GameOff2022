@@ -20,10 +20,12 @@ public class Hammer : MonoBehaviour
     public LayerMask constructionLayer;
     [SerializeField] private float raycastLength = 2f;
 
+    [SerializeField] private GameObject UIPrompt;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        UIPrompt.SetActive(false);
     }
 
     // Update is called once per frame
@@ -64,6 +66,7 @@ public class Hammer : MonoBehaviour
         foreach (Transform child in transform.GetComponentsInChildren<Transform>()){
             child.gameObject.layer = LayerMask.NameToLayer("Tool");
         }
+        UIPrompt.SetActive(true);
         //transform.position = new Vector3(0f,0f,0f);
     }
 
@@ -76,5 +79,6 @@ public class Hammer : MonoBehaviour
         foreach (Transform child in transform.GetComponentsInChildren<Transform>()){
             child.gameObject.layer = LayerMask.NameToLayer("Interactable");
         }
+        UIPrompt.SetActive(false);
     }
 }
