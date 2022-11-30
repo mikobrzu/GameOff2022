@@ -7,10 +7,13 @@ public class SmelterEntryPoint : MonoBehaviour
     public GameObject SMRef;
     public GameObject BeltRef;
 
+    [SerializeField] private SoundManager SoundMRef;
+    [SerializeField] private AudioClip oreInAC;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        SoundMRef = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
     // Update is called once per frame
@@ -28,6 +31,7 @@ public class SmelterEntryPoint : MonoBehaviour
             // Check if Game Object was removed.
 
             SMRef.GetComponent<SmeltingMachine>().AddOreToMachine(other.GetComponent<Ore>().oreType, other.GetComponent<Ore>().weight, other.GetComponent<Ore>().quality, other.GetComponent<Ore>().price);
+            SoundMRef.PlaySound(oreInAC);
             Destroy(other.gameObject);
         }
     }

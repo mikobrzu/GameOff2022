@@ -46,10 +46,15 @@ public class SmeltingMachine : MonoBehaviour
 
     [SerializeField] private GameObject SmokePrefab;
 
+    [SerializeField] private SoundManager SMRef;
+    [SerializeField] private AudioClip smeltAC;
+    [SerializeField] private AudioClip ingotPopoutAC;
+
     // Start is called before the first frame update
     void Start()
     {
         SMAnimator = gameObject.GetComponent<Animator>();
+        SMRef = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
     // Update is called once per frame
@@ -113,6 +118,8 @@ public class SmeltingMachine : MonoBehaviour
     public void MakeIngot(){
         if (machineEmpty == false){
 
+            SMRef.PlaySound(smeltAC);
+            
             //CalculateOutputQuality();
             //CalculateOutputPrice();
 
@@ -138,6 +145,7 @@ public class SmeltingMachine : MonoBehaviour
             }
 
             Instantiate(SmokePrefab, ingotSpawnLocation.position, Quaternion.identity);
+            SMRef.PlaySound(ingotPopoutAC);
 
             totalWeight = 0f;
             qualityValue = 0f;

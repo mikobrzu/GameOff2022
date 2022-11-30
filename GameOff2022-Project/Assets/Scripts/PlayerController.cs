@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private bool holdingBP;
 
+    [SerializeField] private bool isWalking;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -97,6 +99,13 @@ public class PlayerController : MonoBehaviour
         velocityY += gravity * Time.deltaTime;
 
         Vector3 velocity = (transform.forward * currentDir.y + transform.right * currentDir.x) * walkSpeed + Vector3.up * velocityY;
+        
+        if (Input.GetAxisRaw("Horizontal") != 0.0 || Input.GetAxisRaw("Vertical") != 0.0){
+            isWalking = true;
+        }
+        else{
+            isWalking = false;
+        }
 
         controller.Move(velocity * Time.deltaTime);
     }
@@ -111,5 +120,9 @@ public class PlayerController : MonoBehaviour
 
     public bool GetHoldingBP(){
         return holdingBP;
+    }
+
+    public bool GetWalking(){
+        return isWalking;
     }
 }

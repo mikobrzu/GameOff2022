@@ -13,10 +13,14 @@ public class QualityCheckMachine : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI qualityOutputText;
 
+    [SerializeField] private SoundManager SMRef;
+    [SerializeField] private AudioClip errorAC;
+    [SerializeField] private AudioClip successAC;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        SMRef = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
     // Update is called once per frame
@@ -57,12 +61,15 @@ public class QualityCheckMachine : MonoBehaviour
     public void OutputQuality(){
         if (armourOnChecker.Count > 1){
             DisplayOutputQualityText("Error");
+            SMRef.PlaySound(errorAC);
         }
         else if (armourOnChecker.Count == 1){
             DisplayOutputQualityText(armourOnChecker[0].GetComponent<ArmourPiece>().GetPieceQuality().ToString("F0"));
+            SMRef.PlaySound(successAC);
         }
         else{
             DisplayOutputQualityText("...");
+            SMRef.PlaySound(errorAC);
         }
     }
 }
