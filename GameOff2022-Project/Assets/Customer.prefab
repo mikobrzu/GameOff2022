@@ -1776,7 +1776,9 @@ MonoBehaviour:
   targetTransform: {fileID: 0}
   spawnerTransform: {fileID: 0}
   assignedSlot: 0
-  customerWaitTime: 180
+  customerMaxPotentialWaitTime: 0
+  customerMinPotentialWaitTime: 0
+  customerWaitTime: 0
   customerStartWaitTime: 0
   waitTimeText: {fileID: 1290395947738282841}
   wantsText: {fileID: 5466247214341951713}
@@ -1808,6 +1810,13 @@ MonoBehaviour:
   orderTimerCanvas: {fileID: 3623417490510062393}
   unhappyCanvas: {fileID: 4685338301114083903}
   happyCanvas: {fileID: 2607435461611993008}
+  currentOpenScene:
+    m_Handle: 0
+  SMRef: {fileID: 0}
+  moneyGetAC: {fileID: 8300000, guid: 3a9a034b39311ac439dfaecf498cd81b, type: 3}
+  happyCustomerAC: {fileID: 8300000, guid: 066cb5d5fd7c3db4caa6144f8af22c1c, type: 3}
+  angryCustomerAC: {fileID: 8300000, guid: 6dccf7e078ec1884585d8995d57d941e, type: 3}
+  HandoverBox: {fileID: 7107615238589752344}
 --- !u!65 &1613668056069903126
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1835,19 +1844,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onInteract:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: -4805890603047434014}
-        m_TargetAssemblyTypeName: Customer, Assembly-CSharp
-        m_MethodName: Served
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &8007704509617170198
 GameObject:
   m_ObjectHideFlags: 0

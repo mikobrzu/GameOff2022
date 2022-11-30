@@ -16,6 +16,7 @@ public class Customer : MonoBehaviour
 
     [SerializeField] private int assignedSlot;
 
+    [SerializeField] private float customerMaxPotentialWaitTime, customerMinPotentialWaitTime;
     [SerializeField] private float customerWaitTime;
     [SerializeField] private float customerStartWaitTime;
     [SerializeField] private TextMeshProUGUI waitTimeText;
@@ -55,6 +56,13 @@ public class Customer : MonoBehaviour
 
     [SerializeField] private Scene currentOpenScene;
 
+    [SerializeField] private SoundManager SMRef;
+    [SerializeField] private AudioClip moneyGetAC;
+    [SerializeField] private AudioClip happyCustomerAC;
+    [SerializeField] private AudioClip angryCustomerAC;
+
+    [SerializeField] private GameObject HandoverBox;
+
     // Start is called before the first frame update
     void Start()
     {   
@@ -63,12 +71,21 @@ public class Customer : MonoBehaviour
         orderUIOn = false;
         orderTimerCanvas.SetActive(false);
         orderWantCanvas.SetActive(false);
-        customerStartWaitTime = customerWaitTime;
+        
         ShopFloorControllerRef = GameObject.Find("ShopFloorController");
         spawnerTransform = GameObject.Find("CustomerSpawnLocation(Clone)").transform;
 
+        HandoverBox.SetActive(false);
+
+        // Set wait time.
+        customerMinPotentialWaitTime = ShopFloorControllerRef.GetComponent<ShopFloorController>().GetCustomerOrderMinWaitTime();
+        customerMaxPotentialWaitTime = ShopFloorControllerRef.GetComponent<ShopFloorController>().GetCustomerOrderMaxWaitTime();
+        customerWaitTime = Random.Range(customerMinPotentialWaitTime, customerMaxPotentialWaitTime);
+
+        customerStartWaitTime = customerWaitTime;
+        // Set Difficulty
         //difficulty = Random.Range(1,5); // will generate a number from 1 to 4.
-        difficulty = Random.Range(1,3);
+        difficulty = Random.Range(1,ShopFloorControllerRef.GetComponent<ShopFloorController>().GetCustomerMaxDifficulty() + 1);
 
         if (difficulty == 1){
             // Wants specific armour piece.
@@ -117,18 +134,54 @@ public class Customer : MonoBehaviour
             // Wants specific armour piece.
             // Wants specific material.
             // Wants specific weight type.
+
+            int arrayRPointer;
+            arrayRPointer = Random.Range(0, possibleArmour.Length);
+            wantArmour = possibleArmour[arrayRPointer];
+            arrayRPointer = Random.Range(0, possibleMaterial.Length);
+            wantMaterialType = possibleMaterial[arrayRPointer];
+            arrayRPointer = Random.Range(0, possibleWeightType.Length);
+            wantWeightType = possibleWeightType[arrayRPointer];
+
+            if (wantArmour == "Leggings"){
+                wantsText.text = "I'd like some <color=yellow>" + wantWeightType + " " + wantMaterialType + " " + wantArmour + "</color> please!";
+            }
+            else{
+                wantsText.text = "I'd like a <color=yellow>" + wantWeightType + " " + wantMaterialType + " " + wantArmour + "</color> please!";
+            }
         }
         else if (difficulty == 4){
             // Wants specific armour piece.
             // Wants specific material.
             // Wants specific weight type.
             // Wants specific quality.
+
+            int arrayRPointer;
+            arrayRPointer = Random.Range(0, possibleArmour.Length);
+            wantArmour = possibleArmour[arrayRPointer];
+            arrayRPointer = Random.Range(0, possibleMaterial.Length);
+            wantMaterialType = possibleMaterial[arrayRPointer];
+            arrayRPointer = Random.Range(0, possibleWeightType.Length);
+            wantWeightType = possibleWeightType[arrayRPointer];
+            arrayRPointer = Random.Range(0, possibleQuality.Length);
+            wantQuality = possibleQuality[arrayRPointer];
+            
+            if (wantArmour == "Leggings"){
+                wantsText.text = "I'd like some <color=yellow>" + wantWeightType + " " + wantMaterialType + " " + wantArmour + "</color> please! Quality of at least <color=yellow>" + wantQuality.ToString("F0") + "</color>!";
+            }
+            else{
+                wantsText.text = "I'd like a <color=yellow>" + wantWeightType + " " + wantMaterialType + " " + wantArmour + "</color> please! Quality of at least <color=yellow>" + wantQuality.ToString("F0") + "</color>!";
+            }
         }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (SMRef == null){
+            SMRef = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        }
+
         currentOpenScene = SceneManager.GetActiveScene();
 
         if (transform.position == targetTransform.position){
@@ -154,7 +207,8 @@ public class Customer : MonoBehaviour
                 orderWantCanvas.SetActive(false);
                 orderTimerCanvas.SetActive(false);
                 unhappyCanvas.SetActive(true);
-                Served();
+                SMRef.PlaySound(angryCustomerAC);
+                Served(false);
             }
         }
 
@@ -163,6 +217,7 @@ public class Customer : MonoBehaviour
             if (orderUIOn == false){
                 orderWantCanvas.SetActive(true);
                 orderTimerCanvas.SetActive(true);
+                HandoverBox.SetActive(true);
                 orderUIOn = true;
             }
 
@@ -195,10 +250,14 @@ public class Customer : MonoBehaviour
         targetTransform = tTransform;
     }
 
-    public void Served(){
+    public void Served(bool happy){
         // The spot that they occupy -> Set to free.
-        ShopFloorControllerRef.GetComponent<ShopFloorController>().CustomerServed(assignedSlot);
+        
+        ShopFloorControllerRef.GetComponent<ShopFloorController>().CustomerServed(assignedSlot, happy);
 
+        if (happy){
+            SMRef.PlaySound(moneyGetAC);
+        }
 
         SetTargetTransform(spawnerTransform);
         //Destroy(gameObject);
@@ -222,7 +281,8 @@ public class Customer : MonoBehaviour
                     inHandoverBox.Remove(a);
                     Destroy(a);
                     satisfied = true;
-                    Served();
+                    SMRef.PlaySound(happyCustomerAC);
+                    Served(true);
                 }
             }
             else if (difficulty == 2){
@@ -230,7 +290,59 @@ public class Customer : MonoBehaviour
                     inHandoverBox.Remove(a);
                     Destroy(a);
                     satisfied = true;
-                    Served();
+                    SMRef.PlaySound(happyCustomerAC);
+                    Served(true);
+                }
+            }
+            else if (difficulty == 3){
+                if (a.GetComponent<ArmourPiece>().GetArmourPieceString() == wantArmour && a.GetComponent<ArmourPiece>().GetArmourTypeString() == wantMaterialType){
+                    // Check the weight against wants.
+                    if (wantWeightType == "Light"){
+                        if (a.GetComponent<ArmourPiece>().GetLightVarientStatus() == true){
+                            // This is the armour.
+                            inHandoverBox.Remove(a);
+                            Destroy(a);
+                            satisfied = true;
+                            SMRef.PlaySound(happyCustomerAC);
+                            Served(true);
+                        }
+                    }
+                    else if (wantWeightType == "Heavy"){
+                        if (a.GetComponent<ArmourPiece>().GetLightVarientStatus() == false){
+                            // This is the armour.
+                            inHandoverBox.Remove(a);
+                            Destroy(a);
+                            satisfied = true;
+                            SMRef.PlaySound(happyCustomerAC);
+                            Served(true);
+                        }
+                    }
+                }
+            }
+            else if (difficulty == 4){
+                if (a.GetComponent<ArmourPiece>().GetArmourPieceString() == wantArmour && a.GetComponent<ArmourPiece>().GetArmourTypeString() == wantMaterialType && a.GetComponent<ArmourPiece>().GetPieceQuality() >= wantQuality){
+                    // Check the weight against wants.
+                    // Check quality against wants.
+                    if (wantWeightType == "Light"){
+                        if (a.GetComponent<ArmourPiece>().GetLightVarientStatus() == true){
+                            // This is the armour.
+                            inHandoverBox.Remove(a);
+                            Destroy(a);
+                            satisfied = true;
+                            SMRef.PlaySound(happyCustomerAC);
+                            Served(true);
+                        }
+                    }
+                    else if (wantWeightType == "Heavy"){
+                        if (a.GetComponent<ArmourPiece>().GetLightVarientStatus() == false){
+                            // This is the armour.
+                            inHandoverBox.Remove(a);
+                            Destroy(a);
+                            satisfied = true;
+                            SMRef.PlaySound(happyCustomerAC);
+                            Served(true);
+                        }
+                    }
                 }
             }
         }

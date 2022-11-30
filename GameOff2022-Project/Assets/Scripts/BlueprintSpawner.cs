@@ -27,12 +27,14 @@ public class BlueprintSpawner : MonoBehaviour
     [SerializeField] private GameObject[] ingotImageGO;
 
     [SerializeField] private GameObject PlayerRef;
+    [SerializeField] private SoundManager SMRef;
 
     //private int spawnedBlueprints = 0;
 
     // Start is called before the first frame update
     void Start()
     {
+        SMRef = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         PlayerRef = GameObject.Find("Player");
 
         if (armourPiece == null || armourPiece == ""){
@@ -93,6 +95,7 @@ public class BlueprintSpawner : MonoBehaviour
                 if (canCreate == true){
                     GameObject spawnedBlueprint = Instantiate(blueprintPrefab, transform.position, Quaternion.identity);
                     spawnedBlueprint.GetComponent<Blueprint>().SetPlayerRef(PlayerRef);
+                    spawnedBlueprint.GetComponent<Blueprint>().SetSMRef(SMRef);
                     spawnedBlueprint.GetComponent<Blueprint>().armourPiece = armourPiece;
                     spawnedBlueprint.GetComponent<Blueprint>().playerCam = playerCam;
                     spawnedBlueprint.GetComponent<Blueprint>().EquipBlueprint();

@@ -14,6 +14,13 @@ public class PhysicsPickup : MonoBehaviour
     [SerializeField] private GameObject Player;
 
     [SerializeField] private QualityCheckMachine QCM;
+    [SerializeField] private SoundManager SMRef;
+    [SerializeField] private AudioClip dropAC;
+    [SerializeField] private AudioClip pickupAC;
+
+    private void Start(){
+        SMRef = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+    }
 
     void Update(){
         if (Input.GetKeyDown(KeyCode.E)){
@@ -49,6 +56,7 @@ public class PhysicsPickup : MonoBehaviour
 
                 CurrentObject.useGravity = true;
                 Physics.IgnoreCollision(CurrentObject.GetComponent<Collider>(), Player.GetComponent<Collider>(), false);
+                SMRef.PlaySound(dropAC);
                 CurrentObject = null;
                 return;
             }
@@ -57,6 +65,7 @@ public class PhysicsPickup : MonoBehaviour
             if (Physics.Raycast(CameraRay, out RaycastHit HitInfo, PickupRange, PickupMask)){
                 CurrentObject = HitInfo.rigidbody;
                 CurrentObject.useGravity = false;
+                SMRef.PlaySound(pickupAC);
                 Physics.IgnoreCollision(CurrentObject.GetComponent<Collider>(), Player.GetComponent<Collider>(), true);
                 if (CurrentObject.GetComponent<ArmourPiece>() != null){
                     CurrentObject.GetComponent<ArmourPiece>().SetBeingHeld(true);

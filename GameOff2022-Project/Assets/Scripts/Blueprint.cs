@@ -35,10 +35,15 @@ public class Blueprint : MonoBehaviour
     [SerializeField] private GameObject[] ingotImageGO;
 
     [SerializeField] private GameObject PlayerRef;
+    [SerializeField] private SoundManager SMRef;
+
+    [SerializeField] private AudioClip blueprintPickupAC;
 
     // Start is called before the first frame update
     void Start()
     {
+        SMRef = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        //blueprintEquipped = false;
         PlayerRef = GameObject.Find("Player");
         blueprintInCZ = false;
         //playerCam = GameObject.Find("Camera");
@@ -77,6 +82,10 @@ public class Blueprint : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (SMRef == null){
+            SMRef = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        }
+
         if (blueprintEquipped == true){
             if (Input.GetKeyDown(KeyCode.Q)){
                 UnequipBlueprint();
@@ -89,13 +98,17 @@ public class Blueprint : MonoBehaviour
 
     public void EquipBlueprint(){
         if (PlayerRef.GetComponent<PlayerController>().GetHoldingBP() == false){
+            if (SMRef != null){
+                SMRef.PlaySound(blueprintPickupAC);
+            }
             RB.isKinematic = true;
             col.enabled = false;
-            blueprintEquipped = true;
+            
             transform.SetParent(playerCam.transform, true);
             blueprintInCZ = false;
             
             PlayerRef.GetComponent<PlayerController>().SetHoldingBP(true);
+            blueprintEquipped = true;
         }
         
     }
@@ -106,12 +119,16 @@ public class Blueprint : MonoBehaviour
             RB.isKinematic = false;
             col.enabled = true;
             transform.parent = null;
-
+            Debug.Log("Unequip called.");
             PlayerRef.GetComponent<PlayerController>().SetHoldingBP(false);
         }
     }
 
     public void SetPlayerRef(GameObject p){
         PlayerRef = p;
+    }
+
+    public void SetSMRef(SoundManager sm){
+        SMRef = sm;
     }
 }

@@ -1371,11 +1371,15 @@ MonoBehaviour:
   arChestplate: {fileID: 21300000, guid: d42f6f21b934f234ebe81d00d9ac8674, type: 3}
   arLeggings: {fileID: 21300000, guid: ac3e85ab10e2fa94098e336a3229b8b1, type: 3}
   arImage: {fileID: 8131132024698057041}
+  blueprintInCZ: 0
   ingotImageGO:
   - {fileID: 2021394437}
   - {fileID: 747920012}
   - {fileID: 377261243}
   - {fileID: 1314448771}
+  PlayerRef: {fileID: 0}
+  SMRef: {fileID: 0}
+  blueprintPickupAC: {fileID: 8300000, guid: 48c0cdea1952a1149abd5dca748a6f47, type: 3}
 --- !u!114 &3469287838610404814
 MonoBehaviour:
   m_ObjectHideFlags: 0

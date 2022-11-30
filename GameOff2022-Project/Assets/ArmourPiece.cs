@@ -79,4 +79,8 @@ public class ArmourPiece : MonoBehaviour
     public void SetBeingHeld(bool h){
         beingHeld = h;
     }
+
+    public bool GetLightVarientStatus(){
+        return lightVarient;
+    }
 }

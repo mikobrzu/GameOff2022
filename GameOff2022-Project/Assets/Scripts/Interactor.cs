@@ -40,6 +40,9 @@ public class Interactor : MonoBehaviour
             else if (hit.collider.name == "QCheckLever"){
                 interactorUIText.text = "Pull Lever (E)";
             }
+            else if (hit.collider.name == "MineExit"){
+                interactorUIText.text = "Go Home (E)";
+            }
             else{
                 interactorUIText.text = "";
             }

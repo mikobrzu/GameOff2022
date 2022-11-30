@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class MineInteractor : MonoBehaviour
 {
@@ -27,16 +29,39 @@ public class MineInteractor : MonoBehaviour
     public GameObject hitVisualPrefab;
     public Transform hitVisualTarget;
 
+    [SerializeField] private TextMeshProUGUI mineHitPercentageText;
+    [SerializeField] private Image miningIndicatorBar;
+
     // Start is called before the first frame update
     void Start()
     {
         pickaxeDamage = 100.0f;
         timeSinceLastHit = 0f;
+        timeSinceLastHit = 100f;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (timeSinceLastHit > 0.0f && timeSinceLastHit < 1.0f){
+            mineHitPercentageText.text = (pickaxeDamageMultiplier * 100).ToString("F0") + "%";
+            miningIndicatorBar.enabled = true;
+        }
+        else{
+            mineHitPercentageText.text = "";
+            miningIndicatorBar.enabled = false;
+        }
+        
+        if (pickaxeDamageMultiplier > 1.0f){
+            miningIndicatorBar.color = new Color32(251, 229, 20, 100);
+        }
+        else{
+            miningIndicatorBar.color = new Color32(255,255,255, 100);
+        }
+
+        miningIndicatorBar.rectTransform.localScale = new Vector3(pickaxeDamageMultiplier, 1.0f, 1.0f);
+        
+
         RaycastHit hit;
 
         if (Physics.Raycast(Camera.main.transform.position,Camera.main.transform.forward, out hit, raycastLength, rockLM)){

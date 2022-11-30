@@ -9,6 +9,7 @@ public class QualityCheckMachine : MonoBehaviour
     [SerializeField] private bool playerInZone;
 
     [SerializeField] private List<ArmourPiece> armourOnChecker = new List<ArmourPiece>();
+    //[SerializeField] private List<Ingot> ingotOnChecker = new List<Ingot>();
 
     [SerializeField] private TextMeshProUGUI qualityOutputText;
 

@@ -47,7 +47,7 @@ public class OreDeposit : MonoBehaviour
         }
 
         int randomGO = Random.Range(0, ironDepositObjects.Length);
-        Debug.Log(randomGO);
+        //Debug.Log(randomGO);
     }
 
     public void BreakDeposit(){

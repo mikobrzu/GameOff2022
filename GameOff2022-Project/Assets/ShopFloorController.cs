@@ -28,6 +28,20 @@ public class ShopFloorController : MonoBehaviour
 
     [SerializeField] private GameObject LevelLoaderRef;
 
+
+    [SerializeField] private int customerMaxDifficulty = 1;
+    [SerializeField] private int customersTotalServed = 0;
+
+    [SerializeField] private float customerOrderMinWaitTime = 10.0f;
+    [SerializeField] private float customerOrderMaxWaitTime = 60.0f;
+
+    [SerializeField] private int currentShopLevel = 1;
+    [SerializeField] private int maxShopLevel;
+    [SerializeField] private float currentShopExperience;
+    [SerializeField] private float shopExperienceNeeded;
+
+    [SerializeField] private float experienceReward;
+
     //[SerializeField] private string currentScene;
 
     private void Awake(){
@@ -59,6 +73,16 @@ public class ShopFloorController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        shopExperienceNeeded = currentShopLevel * 30;
+        if (currentShopLevel < maxShopLevel){
+            if (currentShopExperience > shopExperienceNeeded){
+                currentShopLevel = currentShopLevel + 1;
+            }
+        }
+
+        CalculateShopStats();
+        SetOrderDifficulty();
+
         if (CustomerSpawner == null){
             CustomerSpawner = GameObject.Find("CustomerSpawnLocation(Clone)");
         }
@@ -136,7 +160,7 @@ public class ShopFloorController : MonoBehaviour
 
     }
 
-    public void CustomerServed(int slotPreviouslyOccupied){
+    public void CustomerServed(int slotPreviouslyOccupied, bool customerHappy){
         
         for (int i = 0; i < customersInShop.Count; i++){
             if (customersInShop[i].GetComponent<Customer>().GetAssignedSlot() == slotPreviouslyOccupied){
@@ -151,10 +175,38 @@ public class ShopFloorController : MonoBehaviour
                 cS.GetComponent<CustomerSlot>().SetOccupied(false);
             }
         }
+
+        if (customerHappy){
+            currentShopExperience = currentShopExperience + experienceReward;
+            customersTotalServed = customersTotalServed + 1;
+        }
     }
 
     public void AddComplaint(){
         complaints += 1;
+    }
+
+    private void CalculateShopStats(){
+        minPossibleWaitTime = (120.0f / (float)currentShopLevel) * 1.8f;
+        maxPossibleWaitTime = (20.0f / (float)currentShopLevel) * 16.0f;
+
+        customerOrderMinWaitTime = ((100.0f / currentShopLevel) + (20.0f * 3.0f));
+        customerOrderMaxWaitTime = (customerOrderMinWaitTime + 40.0f);
+    }
+
+    private void SetOrderDifficulty(){
+        if (currentShopLevel == 1 || currentShopLevel == 2){
+            customerMaxDifficulty = 1;
+        }
+        else if (currentShopLevel == 3 || currentShopLevel == 4){
+            customerMaxDifficulty = 2;
+        }
+        else if (currentShopLevel == 5 || currentShopLevel == 6){
+            customerMaxDifficulty = 3;
+        }
+        else if (currentShopLevel > 6){
+            customerMaxDifficulty = 4;
+        }
     }
 
     public int GetCurrentNumberOfComplaints(){
@@ -163,5 +215,41 @@ public class ShopFloorController : MonoBehaviour
 
     public int GetMaxComplaints(){
         return maxComplaints;
+    }
+
+    public float GetMaxPossibleWaitTime(){
+        return maxPossibleWaitTime;
+    }
+
+    public float GetMinPossibleWaitTime(){
+        return minPossibleWaitTime;
+    }
+
+    public int GetCustomerMaxDifficulty(){
+        return customerMaxDifficulty;
+    }
+
+    public int GetTotalServed(){
+        return customersTotalServed;
+    }
+
+    public float GetCustomerOrderMinWaitTime(){
+        return customerOrderMinWaitTime;
+    }
+
+    public float GetCustomerOrderMaxWaitTime(){
+        return customerOrderMaxWaitTime;
+    }
+
+    public int GetCurrentShopLevel(){
+        return currentShopLevel;
+    }
+
+    public float GetCurrentExperience(){
+        return currentShopExperience;
+    }
+
+    public float GetNeededExperience(){
+        return shopExperienceNeeded;
     }
 }
