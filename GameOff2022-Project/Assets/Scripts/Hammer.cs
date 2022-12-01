@@ -25,7 +25,9 @@ public class Hammer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        UIPrompt.SetActive(false);
+        if (UIPrompt != null){
+            UIPrompt.SetActive(false);
+        }   
     }
 
     // Update is called once per frame

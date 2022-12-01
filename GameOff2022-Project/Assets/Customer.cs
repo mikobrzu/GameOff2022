@@ -303,6 +303,12 @@ public class Customer : MonoBehaviour
         }
 
         PlayerDataRef.playerGold = PlayerDataRef.playerGold + goldToGive;
+        
+        // Check if this is the most gold received.
+        if (PlayerDataRef.mostGoldReceived < goldToGive){
+            PlayerDataRef.mostGoldReceived = goldToGive;
+        }
+
     }
 
     private void CheckHandoverBox(){
@@ -317,6 +323,9 @@ public class Customer : MonoBehaviour
                     satisfied = true;
                     SMRef.PlaySound(happyCustomerAC);
                     CalculateAndGiveGold(a.GetComponent<ArmourPiece>());
+                    
+                    PlayerDataRef.totalCustomersServed = PlayerDataRef.totalCustomersServed + 1;
+
                     Served(true);
                 }
             }
@@ -327,6 +336,9 @@ public class Customer : MonoBehaviour
                     satisfied = true;
                     SMRef.PlaySound(happyCustomerAC);
                     CalculateAndGiveGold(a.GetComponent<ArmourPiece>());
+
+                    PlayerDataRef.totalCustomersServed = PlayerDataRef.totalCustomersServed + 1;
+
                     Served(true);
                 }
             }
@@ -341,6 +353,9 @@ public class Customer : MonoBehaviour
                             satisfied = true;
                             SMRef.PlaySound(happyCustomerAC);
                             CalculateAndGiveGold(a.GetComponent<ArmourPiece>());
+
+                            PlayerDataRef.totalCustomersServed = PlayerDataRef.totalCustomersServed + 1;
+
                             Served(true);
                         }
                     }
@@ -352,6 +367,9 @@ public class Customer : MonoBehaviour
                             satisfied = true;
                             SMRef.PlaySound(happyCustomerAC);
                             CalculateAndGiveGold(a.GetComponent<ArmourPiece>());
+
+                            PlayerDataRef.totalCustomersServed = PlayerDataRef.totalCustomersServed + 1;
+
                             Served(true);
                         }
                     }
@@ -369,6 +387,9 @@ public class Customer : MonoBehaviour
                             satisfied = true;
                             SMRef.PlaySound(happyCustomerAC);
                             CalculateAndGiveGold(a.GetComponent<ArmourPiece>());
+
+                            PlayerDataRef.totalCustomersServed = PlayerDataRef.totalCustomersServed + 1;
+
                             Served(true);
                         }
                     }
@@ -380,6 +401,9 @@ public class Customer : MonoBehaviour
                             satisfied = true;
                             SMRef.PlaySound(happyCustomerAC);
                             CalculateAndGiveGold(a.GetComponent<ArmourPiece>());
+
+                            PlayerDataRef.totalCustomersServed = PlayerDataRef.totalCustomersServed + 1;
+
                             Served(true);
                         }
                     }

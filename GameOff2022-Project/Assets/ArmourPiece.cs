@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ArmourPiece : MonoBehaviour
 {
@@ -20,16 +21,26 @@ public class ArmourPiece : MonoBehaviour
 
     [SerializeField] private MeshRenderer mR;
 
+    [SerializeField] private PlayerData PDRef;
+
     // Start is called before the first frame update
     void Start()
     {
         DontDestroyOnLoad(transform.gameObject);
         CalculatePiecePrice();
+
+        if (SceneManager.GetActiveScene().name != "GameOver"){
+            PDRef = GameObject.Find("Player").GetComponent<PlayerData>();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (PDRef == null && SceneManager.GetActiveScene().name != "GameOver"){
+            PDRef = GameObject.Find("Player").GetComponent<PlayerData>();
+        }
+
         if (beingHeld == true){
             foreach (MeshRenderer meshr in allMR){
                 meshr.material = transparentMat;
@@ -46,6 +57,20 @@ public class ArmourPiece : MonoBehaviour
 
     public void SetWeight(float materialsWeight){
         pieceWeight = materialsWeight * 1.1f;
+
+        if (PDRef != null){
+            if (pieceWeight > PDRef.heaviestArmourPieceMade){
+                PDRef.heaviestArmourPieceMade = pieceWeight;
+            }
+        }
+        else{
+            if (SceneManager.GetActiveScene().name != "GameOver"){
+                PDRef = GameObject.Find("Player").GetComponent<PlayerData>();
+            }
+
+            PDRef.heaviestArmourPieceMade = pieceWeight;
+        }
+        
     }
 
     public void SetQuality(float materialsQuality){

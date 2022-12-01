@@ -50,16 +50,23 @@ public class SmeltingMachine : MonoBehaviour
     [SerializeField] private AudioClip smeltAC;
     [SerializeField] private AudioClip ingotPopoutAC;
 
+    [SerializeField] private PlayerData PDRef;
+
     // Start is called before the first frame update
     void Start()
     {
         SMAnimator = gameObject.GetComponent<Animator>();
         SMRef = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        PDRef = GameObject.Find("Player").GetComponent<PlayerData>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (PDRef == null){
+            PDRef = GameObject.Find("Player").GetComponent<PlayerData>();
+        }
+
         if (oreInMachine > 0f){
             machineEmpty = false;
 
@@ -117,6 +124,8 @@ public class SmeltingMachine : MonoBehaviour
 
     public void MakeIngot(){
         if (machineEmpty == false){
+
+            PDRef.totalOreSmelted = PDRef.totalOreSmelted + (int)oreInMachine;
 
             SMRef.PlaySound(smeltAC);
             

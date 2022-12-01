@@ -148,6 +148,7 @@ public class ShopFloorController : MonoBehaviour
         }
 
         if (closeShop == true){
+            PDRef.SavePlayerData();
             LevelLoaderRef.GetComponent<LevelLoader>().FinishGame();
         }
     }

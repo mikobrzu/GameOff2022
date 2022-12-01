@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class AnvilConstructZone : MonoBehaviour
 {
@@ -73,10 +74,14 @@ public class AnvilConstructZone : MonoBehaviour
     
     [SerializeField] private Image arImage;
 
+    [SerializeField] private PlayerData PDRef;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (SceneManager.GetActiveScene().name != "GameOver"){
+            PDRef = GameObject.Find("Player").GetComponent<PlayerData>();
+        }
     }
 
     // Update is called once per frame
@@ -497,6 +502,8 @@ public class AnvilConstructZone : MonoBehaviour
             numberOfChestplateBP = 0;
             numberOfLeggingsBP = 0;
             numberOfShieldBP = 0;
+
+            PDRef.armourPiecesMade = PDRef.armourPiecesMade + 1;
 
             Instantiate(SmokeEffect, transform.position, Quaternion.identity);
         }

@@ -17,6 +17,14 @@ public class PlayerData : MonoBehaviour
     public float playerCurrentExperience;
     public float playerTargetExperience;
 
+    public int totalCustomersServed;
+    public float mostGoldReceived;
+    public int armourPiecesMade;
+    public float heaviestArmourPieceMade;
+    public int totalOreSmelted;
+
+    public float totalPlayTime;
+
     public PlayerDataStoreDB PlayerDataStoreDB;
 
     public TextMeshProUGUI goldText;
@@ -32,6 +40,8 @@ public class PlayerData : MonoBehaviour
     void Update()
     {
         goldText.text = "Gold: " + playerGold.ToString("F0");
+
+        totalPlayTime += Time.deltaTime;
     }
 
     void LoadPlayerData(){
@@ -47,6 +57,13 @@ public class PlayerData : MonoBehaviour
             playerGold = pData.pGold;
             playerLevel = pData.pLevel;
             playerCurrentExperience = pData.pCurrentExperience;
+
+            totalPlayTime = pData.pTotalTime;
+            totalCustomersServed = pData.pCustomersServed;
+            mostGoldReceived = pData.pMostGoldReceived;
+            armourPiecesMade = pData.pArmourPiecesMade;
+            heaviestArmourPieceMade = pData.pHeaviestArmourPieceMade;
+            totalOreSmelted = pData.pOreSmelted;
         }
 
         PlayerDataStoreDB.dataItems.Clear();
@@ -59,6 +76,14 @@ public class PlayerData : MonoBehaviour
         dataItem.pGold = playerGold;
         dataItem.pLevel = playerLevel;
         dataItem.pCurrentExperience = playerCurrentExperience;
+
+        dataItem.pTotalTime = totalPlayTime;
+        dataItem.pCustomersServed = totalCustomersServed;
+        dataItem.pMostGoldReceived = mostGoldReceived;
+        dataItem.pArmourPiecesMade = armourPiecesMade;
+        dataItem.pHeaviestArmourPieceMade = heaviestArmourPieceMade;
+        dataItem.pOreSmelted = totalOreSmelted;
+
         PlayerDataStoreDB.dataItems.Add(dataItem);
 
         XmlSerializer xmlSerializer = new XmlSerializer(typeof(PlayerDataStoreDB));
@@ -79,4 +104,11 @@ public class PlayerDataStore{
     public float pGold;
     public int pLevel;
     public float pCurrentExperience;
+
+    public float pTotalTime;
+    public int pCustomersServed;
+    public float pMostGoldReceived;
+    public int pArmourPiecesMade;
+    public float pHeaviestArmourPieceMade;
+    public int pOreSmelted;
 }

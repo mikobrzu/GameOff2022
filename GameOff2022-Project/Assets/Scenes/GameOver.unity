@@ -12373,6 +12373,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2602226253130823144, guid: a24ec74ad84116e46b0bc0d9111379dc,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2299065276194055753, guid: a24ec74ad84116e46b0bc0d9111379dc,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -14081,6 +14086,7 @@ GameObject:
   - component: {fileID: 1401043618}
   - component: {fileID: 1401043617}
   - component: {fileID: 1401043616}
+  - component: {fileID: 1401043620}
   m_Layer: 5
   m_Name: GameOverCanvas
   m_TagString: Untagged
@@ -14170,6 +14176,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1401043620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401043615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 639bb85f7603f3e4cbb16f6000603eb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalTimeText: {fileID: 264130141}
+  totalGoldText: {fileID: 1499923889}
+  customersServedText: {fileID: 748832193}
+  mostGoldReceivedText: {fileID: 45916458}
+  armourPiecesMadeText: {fileID: 1292465095}
+  heaviestPieceMadeText: {fileID: 242592084}
+  oreSmeltedText: {fileID: 588356084}
 --- !u!1 &1409945711
 GameObject:
   m_ObjectHideFlags: 0
@@ -18643,6 +18668,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -3695511951920881568, guid: 7a153134d9c11a242bd64dfcadd30773,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 402056370153861812, guid: 7a153134d9c11a242bd64dfcadd30773,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -20193,6 +20223,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4869914688493783211, guid: f05c3b08bc5a7804da59515d86fcc79a,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8584059227359269172, guid: f05c3b08bc5a7804da59515d86fcc79a,
         type: 3}
       propertyPath: m_RootOrder
