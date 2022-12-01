@@ -40,7 +40,11 @@ public class ShopFloorController : MonoBehaviour
     [SerializeField] private float currentShopExperience;
     [SerializeField] private float shopExperienceNeeded;
 
-    [SerializeField] private float experienceReward;
+    [SerializeField] private float experienceReward = 15.0f;
+
+    [SerializeField] private PlayerData PDRef;
+
+    [SerializeField] private bool hadFirstCustomer = false;
 
     //[SerializeField] private string currentScene;
 
@@ -73,6 +77,10 @@ public class ShopFloorController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PDRef == null){
+            PDRef = GameObject.Find("Player").GetComponent<PlayerData>();
+        }
+
         shopExperienceNeeded = currentShopLevel * 30;
         if (currentShopLevel < maxShopLevel){
             if (currentShopExperience > shopExperienceNeeded){
@@ -95,8 +103,14 @@ public class ShopFloorController : MonoBehaviour
         if (countdownToSpawn >= 0.0f && SceneManager.GetActiveScene().name == "Shop"){
             countdownToSpawn -= Time.deltaTime;
         }
-        else if (countdownToSpawn >= 0.0f && SceneManager.GetActiveScene().name != "Shop") {
-            countdownToSpawn = countdownToSpawn;
+        else if (countdownToSpawn >= 0.0f && SceneManager.GetActiveScene().name != "Shop"){
+            // Tick down until 3 seconds.
+            if (countdownToSpawn >= 3.0f){
+                countdownToSpawn -= Time.deltaTime;
+            }
+            else{
+                countdownToSpawn = countdownToSpawn;
+            }
         }
         else{
             if (numberOfCustomers < maxNumberOfCustomers){
@@ -154,7 +168,13 @@ public class ShopFloorController : MonoBehaviour
     }
 
     private void GenWaitTime(){
-        countdownToSpawn = Random.Range(minPossibleWaitTime, maxPossibleWaitTime);
+        if (hadFirstCustomer == false){
+            countdownToSpawn = 30.0f;
+            hadFirstCustomer = true;
+        }
+        else{
+            countdownToSpawn = Random.Range(minPossibleWaitTime, maxPossibleWaitTime);
+        }
     }
 
     private void SpawnCustomer(){
@@ -188,8 +208,8 @@ public class ShopFloorController : MonoBehaviour
     }
 
     private void CalculateShopStats(){
-        minPossibleWaitTime = (120.0f / (float)currentShopLevel) * 1.8f;
-        maxPossibleWaitTime = (20.0f / (float)currentShopLevel) * 16.0f;
+        minPossibleWaitTime = (100.0f / (float)currentShopLevel) * 1.8f;
+        maxPossibleWaitTime = (20.0f / (float)currentShopLevel) * 14.0f;
 
         customerOrderMinWaitTime = ((100.0f / currentShopLevel) + (20.0f * 3.0f));
         customerOrderMaxWaitTime = (customerOrderMinWaitTime + 40.0f);
@@ -252,5 +272,9 @@ public class ShopFloorController : MonoBehaviour
 
     public float GetNeededExperience(){
         return shopExperienceNeeded;
+    }
+
+    public void RewardExperience(){
+        currentShopExperience = currentShopExperience + experienceReward;
     }
 }

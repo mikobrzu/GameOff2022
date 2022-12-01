@@ -50,7 +50,7 @@ public class ShopFloor : MonoBehaviour
                 slot.GetComponent<CustomerSlot>().SetSlotID(i);
             }
 
-            Instantiate(customerSpawnLocationPrefab, transform.position + new Vector3(-5f, 0f, 0f), Quaternion.identity);
+            Instantiate(customerSpawnLocationPrefab, transform.position + new Vector3(-6f, 0f, 0f), Quaternion.identity);
             spawnedSlots = true;
         }
         

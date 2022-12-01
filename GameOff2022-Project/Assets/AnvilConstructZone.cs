@@ -79,7 +79,7 @@ public class AnvilConstructZone : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (SceneManager.GetActiveScene().name != "GameOver"){
+        if ((SceneManager.GetActiveScene().name != "GameOver") || (SceneManager.GetActiveScene().name != "Start")){
             PDRef = GameObject.Find("Player").GetComponent<PlayerData>();
         }
     }

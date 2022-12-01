@@ -3,7 +3,22 @@ guid: aae8505f36a647e4891b027ccc287991
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - blueprintHeader: {instanceID: 0}
+  - blueprintTargetGO: {instanceID: 0}
+  - blueprintTargetPosition: {instanceID: 0}
+  - RB: {instanceID: 0}
+  - col: {instanceID: 0}
+  - playerCam: {instanceID: 0}
+  - arHelmet: {instanceID: 0}
+  - arShield: {instanceID: 0}
+  - arChestplate: {instanceID: 0}
+  - arLeggings: {instanceID: 0}
+  - arImage: {instanceID: 0}
+  - PlayerRef: {instanceID: 0}
+  - SMRef: {instanceID: 0}
+  - blueprintPickupAC: {instanceID: 0}
+  - blueprintDropAC: {fileID: 8300000, guid: b48eba89830390041939e63edfd88a2f, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

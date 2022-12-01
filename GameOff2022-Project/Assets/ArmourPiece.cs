@@ -29,7 +29,7 @@ public class ArmourPiece : MonoBehaviour
         DontDestroyOnLoad(transform.gameObject);
         CalculatePiecePrice();
 
-        if (SceneManager.GetActiveScene().name != "GameOver"){
+        if (SceneManager.GetActiveScene().name != "GameOver" || SceneManager.GetActiveScene().name != "Start"){
             PDRef = GameObject.Find("Player").GetComponent<PlayerData>();
         }
     }
@@ -37,7 +37,7 @@ public class ArmourPiece : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PDRef == null && SceneManager.GetActiveScene().name != "GameOver"){
+        if (PDRef == null && SceneManager.GetActiveScene().name != "GameOver" || SceneManager.GetActiveScene().name != "Start"){
             PDRef = GameObject.Find("Player").GetComponent<PlayerData>();
         }
 
@@ -64,11 +64,13 @@ public class ArmourPiece : MonoBehaviour
             }
         }
         else{
-            if (SceneManager.GetActiveScene().name != "GameOver"){
+            if (SceneManager.GetActiveScene().name != "GameOver" || SceneManager.GetActiveScene().name != "Start"){
                 PDRef = GameObject.Find("Player").GetComponent<PlayerData>();
             }
 
-            PDRef.heaviestArmourPieceMade = pieceWeight;
+            if (pieceWeight > PDRef.heaviestArmourPieceMade){
+                PDRef.heaviestArmourPieceMade = pieceWeight;
+            }
         }
         
     }

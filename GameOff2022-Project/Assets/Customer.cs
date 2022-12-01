@@ -66,6 +66,9 @@ public class Customer : MonoBehaviour
     [SerializeField] private PlayerData PlayerDataRef;
     [SerializeField] private GameObject PlayerRef;
 
+    [SerializeField] private GameObject moneyTextIndicator;
+    [SerializeField] private GameObject targetMoneyIndicator;
+
     // Start is called before the first frame update
     void Start()
     {   
@@ -309,6 +312,8 @@ public class Customer : MonoBehaviour
             PlayerDataRef.mostGoldReceived = goldToGive;
         }
 
+        MoneyIndicator indicator = Instantiate(moneyTextIndicator, targetMoneyIndicator.transform.position, Quaternion.identity).GetComponent<MoneyIndicator>();
+        indicator.SetMoneyText(goldToGive);
     }
 
     private void CheckHandoverBox(){
@@ -318,11 +323,11 @@ public class Customer : MonoBehaviour
         foreach(GameObject a in inHandoverBox){
             if (difficulty == 1){
                 if (a.GetComponent<ArmourPiece>().GetArmourPieceString() == wantArmour){
+                    CalculateAndGiveGold(a.GetComponent<ArmourPiece>());
                     inHandoverBox.Remove(a);
                     Destroy(a);
                     satisfied = true;
                     SMRef.PlaySound(happyCustomerAC);
-                    CalculateAndGiveGold(a.GetComponent<ArmourPiece>());
                     
                     PlayerDataRef.totalCustomersServed = PlayerDataRef.totalCustomersServed + 1;
 
@@ -331,11 +336,11 @@ public class Customer : MonoBehaviour
             }
             else if (difficulty == 2){
                 if (a.GetComponent<ArmourPiece>().GetArmourPieceString() == wantArmour && a.GetComponent<ArmourPiece>().GetArmourTypeString() == wantMaterialType){
+                    CalculateAndGiveGold(a.GetComponent<ArmourPiece>());
                     inHandoverBox.Remove(a);
                     Destroy(a);
                     satisfied = true;
                     SMRef.PlaySound(happyCustomerAC);
-                    CalculateAndGiveGold(a.GetComponent<ArmourPiece>());
 
                     PlayerDataRef.totalCustomersServed = PlayerDataRef.totalCustomersServed + 1;
 
@@ -348,11 +353,11 @@ public class Customer : MonoBehaviour
                     if (wantWeightType == "Light"){
                         if (a.GetComponent<ArmourPiece>().GetLightVarientStatus() == true){
                             // This is the armour.
+                            CalculateAndGiveGold(a.GetComponent<ArmourPiece>());
                             inHandoverBox.Remove(a);
                             Destroy(a);
                             satisfied = true;
                             SMRef.PlaySound(happyCustomerAC);
-                            CalculateAndGiveGold(a.GetComponent<ArmourPiece>());
 
                             PlayerDataRef.totalCustomersServed = PlayerDataRef.totalCustomersServed + 1;
 
@@ -362,11 +367,11 @@ public class Customer : MonoBehaviour
                     else if (wantWeightType == "Heavy"){
                         if (a.GetComponent<ArmourPiece>().GetLightVarientStatus() == false){
                             // This is the armour.
+                            CalculateAndGiveGold(a.GetComponent<ArmourPiece>());
                             inHandoverBox.Remove(a);
                             Destroy(a);
                             satisfied = true;
                             SMRef.PlaySound(happyCustomerAC);
-                            CalculateAndGiveGold(a.GetComponent<ArmourPiece>());
 
                             PlayerDataRef.totalCustomersServed = PlayerDataRef.totalCustomersServed + 1;
 
@@ -382,11 +387,11 @@ public class Customer : MonoBehaviour
                     if (wantWeightType == "Light"){
                         if (a.GetComponent<ArmourPiece>().GetLightVarientStatus() == true){
                             // This is the armour.
+                            CalculateAndGiveGold(a.GetComponent<ArmourPiece>());
                             inHandoverBox.Remove(a);
                             Destroy(a);
                             satisfied = true;
                             SMRef.PlaySound(happyCustomerAC);
-                            CalculateAndGiveGold(a.GetComponent<ArmourPiece>());
 
                             PlayerDataRef.totalCustomersServed = PlayerDataRef.totalCustomersServed + 1;
 
@@ -396,11 +401,11 @@ public class Customer : MonoBehaviour
                     else if (wantWeightType == "Heavy"){
                         if (a.GetComponent<ArmourPiece>().GetLightVarientStatus() == false){
                             // This is the armour.
+                            CalculateAndGiveGold(a.GetComponent<ArmourPiece>());
                             inHandoverBox.Remove(a);
                             Destroy(a);
                             satisfied = true;
                             SMRef.PlaySound(happyCustomerAC);
-                            CalculateAndGiveGold(a.GetComponent<ArmourPiece>());
 
                             PlayerDataRef.totalCustomersServed = PlayerDataRef.totalCustomersServed + 1;
 

@@ -46,6 +46,19 @@ public class PlayerData : MonoBehaviour
 
     void LoadPlayerData(){
         if (!File.Exists(Application.persistentDataPath + "playerdata.xml")){
+            playerGold = 0.0f;
+            playerLevel = 1;
+            playerCurrentExperience = 0.0f;
+            playerTargetExperience = 0.0f;
+
+            totalCustomersServed = 0;
+            mostGoldReceived = 0.0f;
+            armourPiecesMade = 0;
+            heaviestArmourPieceMade = 0.0f;
+            totalOreSmelted = 0;
+
+            totalPlayTime = 0.0f;
+
             return;
         }
         XmlSerializer xmlSerializer = new XmlSerializer(typeof(PlayerDataStoreDB));

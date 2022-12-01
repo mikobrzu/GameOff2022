@@ -513,6 +513,9 @@ MonoBehaviour:
     m_Bits: 4096
   raycastLength: 2
   UIPrompt: {fileID: 0}
+  hammerDrop: {fileID: 0}
+  SMRef: {fileID: 0}
+  CamShake: {fileID: 0}
 --- !u!1 &45916455
 GameObject:
   m_ObjectHideFlags: 0
@@ -3815,6 +3818,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 102
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 90}
+--- !u!1 &403923388
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 403923390}
+  - component: {fileID: 403923389}
+  m_Layer: 0
+  m_Name: GameCleanup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &403923389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 403923388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25e90b153bbed7b43b7c2276e4061529, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &403923390
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 403923388}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.9325995, y: 1.9608847, z: 6.1459045}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 208
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -12278,6 +12325,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6392252881350147991, guid: db39e017da1a84947af6f24b255a493b,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db39e017da1a84947af6f24b255a493b, type: 3}
 --- !u!114 &1221869323 stripped
@@ -12442,6 +12494,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Shield_CopperLight
+      objectReference: {fileID: 0}
+    - target: {fileID: 6609386909549790664, guid: a24ec74ad84116e46b0bc0d9111379dc,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 6609386909549790664, guid: a24ec74ad84116e46b0bc0d9111379dc,
         type: 3}
@@ -14195,6 +14252,8 @@ MonoBehaviour:
   armourPiecesMadeText: {fileID: 1292465095}
   heaviestPieceMadeText: {fileID: 242592084}
   oreSmeltedText: {fileID: 588356084}
+  SMRef: {fileID: 0}
+  GameOverAC: {fileID: 8300000, guid: 269c6ba4cb6cf824f9a5e457dc5fa64f, type: 3}
 --- !u!1 &1409945711
 GameObject:
   m_ObjectHideFlags: 0
@@ -15409,6 +15468,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1363273148636261119, guid: 20b44ff1b34466544ac617e5e3063aaa,
         type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 1363273148636261119, guid: 20b44ff1b34466544ac617e5e3063aaa,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -15467,6 +15531,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 3663660852296768830, guid: 20b44ff1b34466544ac617e5e3063aaa,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20b44ff1b34466544ac617e5e3063aaa, type: 3}
 --- !u!1001 &1537014208
@@ -15476,6 +15545,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -3695511951920881568, guid: 7a153134d9c11a242bd64dfcadd30773,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 402056370153861812, guid: 7a153134d9c11a242bd64dfcadd30773,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -15490,6 +15564,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Chestplate_CopperHeavy
+      objectReference: {fileID: 0}
+    - target: {fileID: 8302876493225756449, guid: 7a153134d9c11a242bd64dfcadd30773,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8302876493225756449, guid: 7a153134d9c11a242bd64dfcadd30773,
         type: 3}
@@ -18690,6 +18769,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8302876493225756449, guid: 7a153134d9c11a242bd64dfcadd30773,
         type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 8302876493225756449, guid: 7a153134d9c11a242bd64dfcadd30773,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -20290,6 +20374,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8965370325765819278, guid: f05c3b08bc5a7804da59515d86fcc79a,
         type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965370325765819278, guid: f05c3b08bc5a7804da59515d86fcc79a,
+        type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -21855,6 +21944,11 @@ PrefabInstance:
         type: 3}
       propertyPath: lightArmourMaxWeight
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6302585495395912346, guid: 16f68e40a7a77194f995dea91d605a79,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6302585495395912346, guid: 16f68e40a7a77194f995dea91d605a79,
         type: 3}

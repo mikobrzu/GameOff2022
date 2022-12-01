@@ -96,7 +96,7 @@ public class SmeltingMachine : MonoBehaviour
 
         weightText.text = "Weight: " + totalWeight.ToString("F0");
         qualityText.text = "Quality: " + outputQuality.ToString("F0");
-        priceText.text = "£" + totalOutputPrice.ToString("F2");
+        priceText.text = "Value: " + totalOutputPrice.ToString("F2");
     }
 
     public void AddOreToMachine(string type, float weight, float quality, float price){

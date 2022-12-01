@@ -38,6 +38,7 @@ public class Blueprint : MonoBehaviour
     [SerializeField] private SoundManager SMRef;
 
     [SerializeField] private AudioClip blueprintPickupAC;
+    [SerializeField] private AudioClip blueprintDropAC;
 
     // Start is called before the first frame update
     void Start()
@@ -97,7 +98,7 @@ public class Blueprint : MonoBehaviour
     }
 
     public void EquipBlueprint(){
-        if (PlayerRef.GetComponent<PlayerController>().GetHoldingBP() == false){
+        if (PlayerRef.GetComponent<PlayerController>().GetHoldingBP() == false && PlayerRef.GetComponent<PlayerController>().GetHoldingHammer() == false){
             if (SMRef != null){
                 SMRef.PlaySound(blueprintPickupAC);
             }
@@ -115,6 +116,9 @@ public class Blueprint : MonoBehaviour
 
     public void UnequipBlueprint(){
         if (PlayerRef.GetComponent<PlayerController>().GetHoldingBP() == true){
+            if (SMRef != null){
+                SMRef.PlaySound(blueprintDropAC);
+            }
             blueprintEquipped = false;
             RB.isKinematic = false;
             col.enabled = true;

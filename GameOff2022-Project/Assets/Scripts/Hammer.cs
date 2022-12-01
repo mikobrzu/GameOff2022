@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Hammer : MonoBehaviour
 {
@@ -22,12 +23,28 @@ public class Hammer : MonoBehaviour
 
     [SerializeField] private GameObject UIPrompt;
 
+    [SerializeField] private AudioClip hammerDrop;
+    [SerializeField] private AudioClip hammerPickup;
+    [SerializeField] private SoundManager SMRef;
+
+    [SerializeField] private CameraShake CamShake;
+
+    [SerializeField] private PlayerController PRef;
+
     // Start is called before the first frame update
     void Start()
     {
         if (UIPrompt != null){
             UIPrompt.SetActive(false);
         }   
+
+        if (SMRef == null){
+            SMRef = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        }
+
+        if (PRef == null && SceneManager.GetActiveScene().name != "Start" && SceneManager.GetActiveScene().name != "GameOver"){
+            PRef = GameObject.Find("Player").GetComponent<PlayerController>();
+        }
     }
 
     // Update is called once per frame
@@ -53,6 +70,10 @@ public class Hammer : MonoBehaviour
                         //Debug.Log(" === HIT CONSTRUCTION ZONE === ");
                         hit.collider.GetComponent<AnvilConstructZone>().ConstructArmourPiece();
                         SoundManager.Instance.PlaySound(hammerHitSound);
+                        // Camera Shake
+                        if (CamShake != null){
+                            StartCoroutine(CamShake.Shake(.3f, .01f));
+                        }
                     }
                 }
             }
@@ -60,16 +81,20 @@ public class Hammer : MonoBehaviour
     }
 
     public void EquipHammer(){
-        hammerRB.isKinematic = true;
-        hammerCol.enabled = false;
-        hammerEquipped = true;
-        transform.SetParent(playerCam.transform, true);
-        gameObject.layer = LayerMask.NameToLayer("Tool");
-        foreach (Transform child in transform.GetComponentsInChildren<Transform>()){
-            child.gameObject.layer = LayerMask.NameToLayer("Tool");
+        if (PRef.GetHoldingBP() == false){
+            hammerRB.isKinematic = true;
+            hammerCol.enabled = false;
+            hammerEquipped = true;
+            transform.SetParent(playerCam.transform, true);
+            gameObject.layer = LayerMask.NameToLayer("Tool");
+            foreach (Transform child in transform.GetComponentsInChildren<Transform>()){
+                child.gameObject.layer = LayerMask.NameToLayer("Tool");
+            }
+            UIPrompt.SetActive(true);
+            PRef.SetHoldingHammer(true);
+            SMRef.PlaySound(hammerPickup);
+            //transform.position = new Vector3(0f,0f,0f);
         }
-        UIPrompt.SetActive(true);
-        //transform.position = new Vector3(0f,0f,0f);
     }
 
     public void UnequipHammer(){
@@ -82,5 +107,7 @@ public class Hammer : MonoBehaviour
             child.gameObject.layer = LayerMask.NameToLayer("Interactable");
         }
         UIPrompt.SetActive(false);
+        PRef.SetHoldingHammer(false);
+        SMRef.PlaySound(hammerDrop);
     }
 }

@@ -29,13 +29,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject gameUICanvas;
 
     [SerializeField] private bool holdingBP;
+    [SerializeField] private bool holdingHammer;
 
     [SerializeField] private bool isWalking;
+
+    [SerializeField] private GameObject holdingBPGO;
 
     // Start is called before the first frame update
     void Start()
     {
         holdingBP = false;
+        holdingHammer = false;
 
         controller = GetComponent<CharacterController>();
         if (lockCursor)
@@ -48,7 +52,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (holdingBP == true){
+            holdingBPGO.SetActive(true);
+        }
+        else{
+            holdingBPGO.SetActive(false);
+        }
 
         if (Input.GetKeyDown(KeyCode.Escape)){
             ToggleGamePause();
@@ -124,5 +133,13 @@ public class PlayerController : MonoBehaviour
 
     public bool GetWalking(){
         return isWalking;
+    }
+
+    public void SetHoldingHammer(bool holding){
+        holdingHammer = holding;
+    }
+
+    public bool GetHoldingHammer(){
+        return holdingHammer;
     }
 }

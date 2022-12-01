@@ -1756,6 +1756,7 @@ Transform:
   - {fileID: 5797091583846755598}
   - {fileID: 2366872950725928765}
   - {fileID: 1894182379191461837}
+  - {fileID: 6591419549652632384}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1817,6 +1818,11 @@ MonoBehaviour:
   happyCustomerAC: {fileID: 8300000, guid: 066cb5d5fd7c3db4caa6144f8af22c1c, type: 3}
   angryCustomerAC: {fileID: 8300000, guid: 6dccf7e078ec1884585d8995d57d941e, type: 3}
   HandoverBox: {fileID: 7107615238589752344}
+  PlayerDataRef: {fileID: 0}
+  PlayerRef: {fileID: 0}
+  moneyTextIndicator: {fileID: 7265276913584687466, guid: 53832094f46e6fa4992c3b0b41f50f09,
+    type: 3}
+  targetMoneyIndicator: {fileID: 8352655474899789912}
 --- !u!65 &1613668056069903126
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2023,6 +2029,37 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &8352655474899789912
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6591419549652632384}
+  m_Layer: 0
+  m_Name: TargetMoneyIndicator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6591419549652632384
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8352655474899789912}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.023, z: -0.667}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8613039163091978607}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4698967889231355257
 PrefabInstance:
   m_ObjectHideFlags: 0

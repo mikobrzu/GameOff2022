@@ -75,7 +75,7 @@ public class BlueprintSpawner : MonoBehaviour
     }
 
     public void GiveBlueprintToHand(){
-        if (PlayerRef.GetComponent<PlayerController>().GetHoldingBP() == false){
+        if (PlayerRef.GetComponent<PlayerController>().GetHoldingBP() == false && PlayerRef.GetComponent<PlayerController>().GetHoldingHammer() == false){
             if (armourPiece == null || armourPiece == ""){
                 return;
             }

@@ -1380,6 +1380,7 @@ MonoBehaviour:
   PlayerRef: {fileID: 0}
   SMRef: {fileID: 0}
   blueprintPickupAC: {fileID: 8300000, guid: 48c0cdea1952a1149abd5dca748a6f47, type: 3}
+  blueprintDropAC: {fileID: 8300000, guid: b48eba89830390041939e63edfd88a2f, type: 3}
 --- !u!114 &3469287838610404814
 MonoBehaviour:
   m_ObjectHideFlags: 0
