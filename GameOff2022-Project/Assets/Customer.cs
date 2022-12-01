@@ -230,7 +230,7 @@ public class Customer : MonoBehaviour
                 orderUIOn = true;
             }
 
-            if (customerWaitTime >= 0.0f && currentOpenScene.name == "Shop"){
+            if (customerWaitTime >= 0.0f && currentOpenScene.name == "Shop" && satisfied == false){
                 customerWaitTime -= Time.deltaTime;
             }
 
